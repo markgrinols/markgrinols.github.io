@@ -59,7 +59,6 @@
 
 			var container = document.getElementById('draggable');
 
-			/*
 			// shuffle words, leaving punctuation in place
 			const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
 			console.log(`nonPunctuationIndexes ${nonPunctuationIndexes}`)
@@ -72,7 +71,6 @@
 				shuffledWords.push( newWord )
 			}
 			words = shuffledWords
-			*/
 
 			for (el in words) {
 				txt = words[el]
@@ -149,7 +147,7 @@
 		Sortable.create(container, {
 			//    group: "words",
 			animation: 500,
-//			swap: true,
+			swap: true,
 			handle: '.word',
 			filter: '.non-word',
 			forceFallback: true,
