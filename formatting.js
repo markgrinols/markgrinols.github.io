@@ -107,7 +107,7 @@ function setWordFormatting(container) {
     for (var i = 0; i < numChildren; ++i) {
         const child = container.children[i]
         if (true || isInCorrectLocation(child)) {
-            child.style.color = 'green'
+      //      child.style.color = 'green'
         }
         else {
             child.style.color = 'black'
