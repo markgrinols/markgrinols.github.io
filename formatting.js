@@ -15,7 +15,7 @@ function setText(container, txt) {
         likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
     }
 
-    shuffle = true
+    shuffle = false
     if (shuffle) {
         // shuffle words, leaving punctuation in place
         const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
@@ -115,10 +115,11 @@ function setWordFormatting(container) {
     }
 }
 
+function selectWord(el) {
+    el.style.color = 'red'
+}
+
 function getChildIndex(node) {
     return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
 
-function selectWord(el) {
-    el.style.color = 'red'
-}

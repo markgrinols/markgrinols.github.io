@@ -43,8 +43,8 @@ const machine = createMachine({
 
 const refreshText = () => {
     setCorrectSpaces(container)
-    restoreCapitalization(container)
-    setWordFormatting(container)
+//    restoreCapitalization(container)
+  //  setWordFormatting(container)
 }
 
 const pointerDownOnPuzzleWords = (ev) => {
