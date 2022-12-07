@@ -15,7 +15,7 @@ function setText(container, txt) {
         likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
     }
 
-    shuffle = false
+    const shuffle = false
     if (shuffle) {
         // shuffle words, leaving punctuation in place
         const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))

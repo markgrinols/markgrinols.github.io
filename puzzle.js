@@ -43,7 +43,7 @@ const machine = createMachine({
 
 const refreshText = () => {
     setCorrectSpaces(container)
-//    restoreCapitalization(container)
+    restoreCapitalization(container)
   //  setWordFormatting(container)
 }
 
