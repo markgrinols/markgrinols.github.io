@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js"></script>
+	<style>
+		body {
+			font-size: 30pt
+		}
+
+		.sortable-ghost {
+			opacity: 1;
+			color: red
+		}
+
+		.sortable-swap-highlight {
+			background-color: #9AB6F1;
+		}
+
+		.sortable-chosen {
+			opacity: 1;
+			color: blue
+		}
+
+		.sortable-drag {
+			opacity: 0;
+			color: white;
+			font-size: 0px
+		}
+
+		div#sentence {
+			margin-top:20%;
+			margin-left: 15%;
+			margin-right: 15%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="sentence">
+		<span id="draggable"></span><span>.</span>
+	</div>
+	</div>
+
+	<script>
+
+		const likelyProperNameMap = {}
+
+		function setText(txt) {
+			txt = txt.replace(',', ' ,').replace('.', ' .').replace(':', ' :').replace(';', ' ;').replace('?', ' ?1')
+			let words = txt.split(' ')
+
+			for(let i = 1; i < words.length; i++) {
+				// if word is capitlized, but is not first letter or after a period, assume it's propername.
+				const word = words[i]
+				likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
+			}
+
+			var container = document.getElementById('draggable');
+
+			/*
+			// shuffle words, leaving punctuation in place
+			const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
+			console.log(`nonPunctuationIndexes ${nonPunctuationIndexes}`)
+			const shuffledIndexes = [...nonPunctuationIndexes]
+			shuffledIndexes.sort((a, b) => 0.5 - Math.random());
+			const shuffledWords = []
+			for (let i = 0; i < words.length; i++) {
+				const isPunc = !nonPunctuationIndexes.includes(i)
+				const newWord = isPunc ?  words[i] : words[shuffledIndexes.pop()]
+				shuffledWords.push( newWord )
+			}
+			words = shuffledWords
+			*/
+
+			for (el in words) {
+				txt = words[el]
+				const textSpan = document.createElement('span')
+				if (!'.,;:?'.includes(txt)) {
+					textSpan.classList.add('word');
+				}
+				else {
+					if (!'.,;:?'.includes(txt)) {
+					textSpan.classList.add('non-word');
+					}
+				}
+				const textNode = document.createTextNode(txt)
+				textSpan.appendChild(textNode)
+				container.appendChild(textSpan)
+			}
+		}
+
+		function isPunctuation(str) {
+			return /[.;:?,]/.test(str)
+		}
+
+		function setCorrectSpaces() {
+			console.log('setCorrectSpaces')
+			// add space after word unless it's next sibling is punctuation, or we're at the end of the list.
+			// note that the final '.' is outside the container atm (which prevents dropping word after the end).
+			// the goal is to have the last child not get a space added. However,
+			// sortable.js will put the 'being dragged' element into the end of the container,
+			// So if that last element is that one (identified by class name), we stop
+			// adding spaces from the 2nd to last element instead of the last element.
+			var container = document.getElementById("draggable");
+			const numChildren = container.childElementCount
+			const isLastElGhost = container.children[numChildren - 1].className.match("\s*" + "sortable-drag" + "\s*")
+
+			for (var i = 0; i < numChildren; ++i) {
+				const el = container.children[i]
+				const txt = el.innerText.trim()
+				el.innerText = txt
+				if (i < (numChildren - (isLastElGhost ? 2 : 1)) && !isPunctuation(container.children[i + 1].innerText)) {
+					el.innerText += " "
+				}
+			}
+		}
+
+		function restoreCapitalization() {
+			// if word is first word or after a period, or is capitlized in likelyProperNameMap
+			// make capital, else don't.
+
+			var container = document.getElementById("draggable");
+			const numChildren = container.childElementCount
+			const isLastElGhost = container.children[numChildren - 1].className.match("\s*" + "sortable-drag" + "\s*")
+
+			for (var i = 0; i < numChildren; ++i) {
+				const isFirst = i == 0
+				const afterPeriod = i > 0 && container.children[i - 1].innerText.trim() == '.'
+				const txt = container.children[i].innerText.trim()
+				const properName = likelyProperNameMap[txt.toLowerCase()]
+				let newVal = container.children[i].innerText
+				const firstChar = (isFirst || afterPeriod || properName) ? newVal[0].toUpperCase() : newVal[0].toLowerCase()
+				container.children[i].innerText = firstChar + newVal.slice(1)
+			}
+		}
+
+		function getChildIndex(node) {
+			return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
+		}
+
+
+		setText("by all means, move at a glacial pace. You know how that thrills me")
+		setCorrectSpaces()
+		restoreCapitalization()
+
+		var container = document.getElementById("draggable");
+		Sortable.create(container, {
+			//    group: "words",
+			animation: 500,
+//			swap: true,
+			handle: '.word',
+			filter: '.non-word',
+			forceFallback: true,
+			onChange: function (/**Event*/evt) {
+				setCorrectSpaces() //  -- this was the right answer before adding swap plugin
+				restoreCapitalization()
+			},
+			onMove: function (/**Event*/evt) {
+				//		return false
+				//		setCorrectSpaces("onMove")
+				//  	const t = evt.dragged.innerText.trim()
+				//    evt.dragged.innerText = t
+				//    	fixSpacing()
+				//	childIndex = getChildIndex(evt.originalEvent.target)/
+				//	console.log(`childIndex = ${childIndex}`)
+				//console.log(evt.originalEvent.target)
+
+				//return false
+
+			},
+			onUpdate: function (evt) {
+				// setCorrectSpaces() //  -- this became the right answer after adding swap plugin
+				// restoreCapitalization()
+			}
+
+		});
+
+  // trying to simultaneously solve:
+  // can't drag past last period
+  // words always have appropriaate spaces around them
+
+
+	</script>
+</body>
+
+</html>
