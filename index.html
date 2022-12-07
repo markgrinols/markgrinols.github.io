@@ -39,14 +39,12 @@
 </head>
 
 <body>
-	<pre>4</pre>
+	<pre>5</pre>
 	<div id="sentence" onpointerdown="pointerDown(event)">
 		<span id="draggable"></span>
 	</div>
 	</div>
 	<script>
-
-		const likelyProperNameMap = {}
 
 		function pointerDown(ev) {
 			el = ev.srcElement
@@ -62,7 +60,7 @@
 		*/
 
 		const container = document.getElementById("draggable");
-		setText(container, "by all means, move at a glacial pace. You know how that thrills me.")
+		setText(container, "by all means, move at a glacial pace. You know how God thrills me.")
 		setCorrectSpaces(container)
 		restoreCapitalization(container)
 
