@@ -1,8 +1,11 @@
 const likelyProperNameMap = {}
+let original_word_list = []
 
 function setText(container, txt) {
     txtWithSpaces = txt.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
     let words = txtWithSpaces.split(' ')
+
+    original_word_list = [...words].map( (x) => x.toLowerCase())
 
     // save capitalization info
     for(let i = 1; i < words.length; i++) {
@@ -78,7 +81,44 @@ function restoreCapitalization(container) {
     }
 }
 
+function swapElements(obj1, obj2) {
+    const parent2 = obj2.parentNode;
+    const next2 = obj2.nextSibling;
+    if (next2 === obj1) {
+        parent2.insertBefore(obj1, obj2);
+    } else {
+        obj1.parentNode.insertBefore(obj2, obj1);
+        if (next2) {
+            parent2.insertBefore(obj1, next2);
+        } else {
+            parent2.appendChild(obj1);
+        }
+    }
+}
+
+function isInCorrectLocation(elem) {
+    const container_loc = getChildIndex(elem)
+    const spanText = elem.innerText.trim().toLowerCase()
+    return  original_word_list[container_loc] === spanText
+}
+
+function setWordFormatting(container) {
+    const numChildren = container.childElementCount
+    for (var i = 0; i < numChildren; ++i) {
+        const child = container.children[i]
+        if (isInCorrectLocation(child)) {
+            child.style.color = 'green'
+        }
+        else {
+            child.style.color = 'black'
+        }
+    }
+}
+
 function getChildIndex(node) {
     return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
 
+function selectWord(el) {
+    el.style.color = 'red'
+}

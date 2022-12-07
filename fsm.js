@@ -1,7 +1,7 @@
 function createMachine(stateMachineDefinition) {
     const machine = {
         value: stateMachineDefinition.initialState,
-        transition(currentState, event) {
+        transition(currentState, event, payload) {
             const currentStateDefinition = stateMachineDefinition[currentState]
             const destinationTransition = currentStateDefinition.transitions[event]
             if (!destinationTransition) {
@@ -11,12 +11,12 @@ function createMachine(stateMachineDefinition) {
             const destinationStateDefinition =
                 stateMachineDefinition[destinationState]
 
-            destinationTransition.action()
-            currentStateDefinition.actions.onExit()
-            destinationStateDefinition.actions.onEnter()
+            destinationTransition.action(payload)
+            currentStateDefinition.actions.onExit?.()
+            destinationStateDefinition.actions.onEnter?.()
 
             machine.value = destinationState
-
+            console.log(`current state: ${machine.value}`)
             return machine.value
         },
     }
