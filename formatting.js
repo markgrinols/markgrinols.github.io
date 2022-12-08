@@ -15,7 +15,7 @@ function setText(container, txt) {
         likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
     }
 
-    const shuffle = false
+    const shuffle = true
     if (shuffle) {
         // shuffle words, leaving punctuation in place
         const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
@@ -106,7 +106,8 @@ function setWordFormatting(container) {
     const numChildren = container.childElementCount
     for (var i = 0; i < numChildren; ++i) {
         const child = container.children[i]
-        if (isInCorrectLocation(child)) {
+        const spanText = child.textContent.trim()
+                if (!isPunctuation(spanText) && isInCorrectLocation(child)) {
            child.style.color = 'green'
         }
         else {

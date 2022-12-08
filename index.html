@@ -37,41 +37,9 @@
 		}
 	</style>
 </head>
-<!--
-6
-turned off a ton of stuff
-stopped repro'ing
 
-7
-adds const to shuffle
-restores restoreCapitalization
-still doesn't repro
-
-8
-reenabled setWordFormatting()
-that borke it
-
-9
-eliminated caall to isInCorrectLocation()
-still broken
-
-10
-removed child.style.color = 'green'
-still repros
-
-11
-sanity check, disabling restoreCapitalization again
-ok that fixed it
-
-12 changed back setWordFormatting, but restoreCapitalization remains disabled
-still fixed. So that means restoreCapitalization has to be the cause
-
-13
-turned restorecap back on, sawapped out all innerText for textContent
-
--->
 <body>
-	<pre style="font-size: 20pt">13</pre>
+	<pre style="font-size: 20pt">14</pre>
 	<div id="sentence" onpointerdown="pointerDownOnPuzzleWords(event)">
 		<span id="draggable"></span>
 	</div>
