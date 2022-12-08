@@ -14,16 +14,26 @@
 			-webkit-user-select: none;
 			-ms-user-select: none;
 			touch-action: manipulation; /* blocks double tap zoom */
-			background: gray;
+			background: #ddd;
+		}
+		.wordCorrect {
+			color: green;
+		}
+		.wordIncorrect {
+			color: black;
+		}
+		.wordSelected {
+			color: red;
+		}
+		.isPunctuation {
 		}
 	</style>
 </head>
 
 <body>
-	<pre style="font-size: 20pt">16</pre>
-	<div id="sentence" >
+	<pre style="font-size: 20pt">17</pre>
+	<div id="sentence">
 		<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
-	</div>
 	</div>
 </body>
 

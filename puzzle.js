@@ -52,7 +52,7 @@ const pointerDownOnPuzzleWords = (ev) => {
     // todo: filter out clicks on punctuation, or on fixed words
     if (el.parentNode == container) {
         state = machine.transition(state, "selectWord", { elem: el})
-        ev.preventDefault()
+        ev.preventDefault() // trying to prevent double tap to zoom
     }
 }
 

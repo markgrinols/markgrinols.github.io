@@ -34,13 +34,8 @@ function setText(container, txt) {
     for (el in words) {
         txt = words[el]
         const textSpan = document.createElement('span')
-        if (!'.,;:?'.includes(txt)) {
-            textSpan.classList.add('word');
-        }
-        else {
-            if (!'.,;:?'.includes(txt)) {
-            textSpan.classList.add('non-word');
-            }
+        if (isPunctuation(txt)) {
+            textSpan.classList.add('punctuation');
         }
         const textNode = document.createTextNode(txt)
         textSpan.appendChild(textNode)
@@ -53,14 +48,11 @@ function isPunctuation(str) {
 }
 
 function setCorrectSpaces(container) {
-    // add space after word unless it's next sibling is punctuation, or we're at the end of the list.
-    const numChildren = container.childElementCount
-    for (var i = 0; i < numChildren; ++i) {
-        const el = container.children[i]
-        const txt = el.textContent.trim()
-        el.textContent = txt
-        if (i < numChildren - 1 && !isPunctuation(container.children[i + 1].textContent)) {
-            el.textContent += " "
+    for (child of container.children) {
+        const txt = child.textContent.trim()
+        child.textContent = txt
+        if (!child.nextSibling?.classList.contains('punctuation')) {
+            child.textContent += " "
         }
     }
 }
@@ -118,15 +110,22 @@ function setWordFormatting(container) {
     }
     for (var i = 0; i < numChildren; ++i) {
         const child = container.children[i]
-        child.style.color = wordsInRightSpots[i] ? 'green' : 'black'
+        removeClassByPrefix(child, 'word')
+        child.classList.add(wordsInRightSpots[i] ? 'wordCorrect' : 'wordIncorrect')
     }
 }
 
 function selectWord(el) {
-    el.style.color = 'red'
+    removeClassByPrefix(el, 'word')
+    el.classList.add('wordSelected')
 }
 
 function getChildIndex(node) {
     return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
 
+function removeClassByPrefix(node, prefix) {
+	var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
+	node.className = node.className.replace(regx, '');
+	return node;
+}
