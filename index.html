@@ -8,6 +8,8 @@
 		#sentence {
 			font-size: 70pt;
 			user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
 		}
 
 		.sortable-ghost {
@@ -39,9 +41,9 @@
 </head>
 
 <body>
-	<pre style="font-size: 20pt">14</pre>
-	<div id="sentence" onpointerdown="pointerDownOnPuzzleWords(event)">
-		<span id="draggable"></span>
+	<pre style="font-size: 20pt">15</pre>
+	<div id="sentence" >
+		<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
 	</div>
 	</div>
 </body>

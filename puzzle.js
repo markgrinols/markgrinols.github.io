@@ -50,8 +50,10 @@ const refreshText = () => {
 const pointerDownOnPuzzleWords = (ev) => {
     el = ev.srcElement
     // todo: filter out clicks on punctuation, or on fixed words
-    state = machine.transition(state, "selectWord", { elem: el})
-    ev.preventDefault()
+    if (el.parentNode == container) {
+        state = machine.transition(state, "selectWord", { elem: el})
+        ev.preventDefault()
+    }
 }
 
 const swapWords = (a, b) => {
