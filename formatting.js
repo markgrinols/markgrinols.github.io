@@ -106,8 +106,8 @@ function setWordFormatting(container) {
     const numChildren = container.childElementCount
     for (var i = 0; i < numChildren; ++i) {
         const child = container.children[i]
-        if (true || isInCorrectLocation(child)) {
-      //      child.style.color = 'green'
+        if (isInCorrectLocation(child)) {
+           child.style.color = 'green'
         }
         else {
             child.style.color = 'black'
