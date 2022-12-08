@@ -43,7 +43,7 @@ const machine = createMachine({
 
 const refreshText = () => {
     setCorrectSpaces(container)
-//    restoreCapitalization(container)
+    restoreCapitalization(container)
     setWordFormatting(container)
 }
 
@@ -55,8 +55,7 @@ const pointerDownOnPuzzleWords = (ev) => {
 
 const swapWords = (a, b) => {
     if (a !== b) {
-        console.log(`doVisualSwap ${a.innerText} -> ${b.innerText}`)
-        // swapNodes(a, b)
+        console.log(`doVisualSwap ${a.textContent} -> ${b.textContent}`)
         swapElements(a, b)
     }
 }

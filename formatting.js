@@ -57,10 +57,10 @@ function setCorrectSpaces(container) {
     const numChildren = container.childElementCount
     for (var i = 0; i < numChildren; ++i) {
         const el = container.children[i]
-        const txt = el.innerText.trim()
-        el.innerText = txt
-        if (i < numChildren - 1 && !isPunctuation(container.children[i + 1].innerText)) {
-            el.innerText += " "
+        const txt = el.textContent.trim()
+        el.textContent = txt
+        if (i < numChildren - 1 && !isPunctuation(container.children[i + 1].textContent)) {
+            el.textContent += " "
         }
     }
 }
@@ -72,12 +72,12 @@ function restoreCapitalization(container) {
 
     for (var i = 0; i < numChildren; ++i) {
         const isFirst = i == 0
-        const afterPeriod = i > 0 && container.children[i - 1].innerText.trim() == '.'
-        const txt = container.children[i].innerText.trim()
-        const properName = likelyProperNameMap[txt.toLowerCase()]
-        let newVal = container.children[i].innerText
-        const firstChar = (isFirst || afterPeriod || properName) ? newVal[0].toUpperCase() : newVal[0].toLowerCase()
-        container.children[i].innerText = firstChar + newVal.slice(1)
+        const isAfterPeriod = i > 0 && container.children[i - 1].textContent.trim() == '.'
+        const txt = container.children[i].textContent.trim()
+        const isProperName = likelyProperNameMap[txt.toLowerCase()]
+        let newVal = container.children[i].textContent
+        const firstChar = (isFirst || isAfterPeriod || isProperName) ? newVal[0].toUpperCase() : newVal[0].toLowerCase()
+        container.children[i].textContent = firstChar + newVal.slice(1)
     }
 }
 
@@ -98,7 +98,7 @@ function swapElements(obj1, obj2) {
 
 function isInCorrectLocation(elem) {
     const container_loc = getChildIndex(elem)
-    const spanText = elem.innerText.trim().toLowerCase()
+    const spanText = elem.textContent.trim().toLowerCase()
     return  original_word_list[container_loc] === spanText
 }
 
