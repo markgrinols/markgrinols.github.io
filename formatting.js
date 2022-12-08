@@ -98,7 +98,6 @@ function setWordFormatting(container) {
 }
 
 function selectWord(el) {
-    removeClassByPrefix(el, 'word')
     el.classList.add('wordSelected')
 }
 

@@ -49,8 +49,7 @@ const refreshText = () => {
 
 const pointerDownOnPuzzleWords = (ev) => {
     el = ev.srcElement
-    // todo: filter out clicks on punctuation, or on fixed words
-    if (el.parentNode == container) {
+    if (el.classList.contains('wordIncorrect')) {
         state = machine.transition(state, "selectWord", { elem: el})
         ev.preventDefault() // trying to prevent double tap to zoom
     }
@@ -74,7 +73,7 @@ const getRandomPuzzle = () => {
         "Things fall apart; the centre cannot hold.",
         "I think that I shall never see a poem lovely as a tree.",
         "We few, we happy few, we band of brothers.",
-        "My mother sacrificed her dreams so i could dream.",
+        "My mother sacrificed her dreams so I could dream.",
         "Every time I travel I meet myself a little more.",
         // this might just be too long. If there are going to be lines of poetry i need to figure
         // out how to manage line breaks. I could consider it invisible punctuation in the code i guess.
