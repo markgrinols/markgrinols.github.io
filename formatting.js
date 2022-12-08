@@ -10,7 +10,7 @@ function setText(container, txt) {
     // save capitalization info
     for(let i = 1; i < words.length; i++) {
         // if word is capitlized, but is not first letter or after a period, assume it's propername.
-        // of course that breaks on "God is dead."
+        // Not perfect, breaks on "God is dead."
         const word = words[i]
         likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
     }
@@ -62,29 +62,14 @@ function restoreCapitalization(container) {
     // make capital, else don't.
     const numChildren = container.childElementCount
 
-    for (var i = 0; i < numChildren; ++i) {
-        const isFirst = i == 0
-        const isAfterPeriod = i > 0 && container.children[i - 1].textContent.trim() == '.'
-        const txt = container.children[i].textContent.trim()
-        const isProperName = likelyProperNameMap[txt.toLowerCase()]
-        let newVal = container.children[i].textContent
-        const firstChar = (isFirst || isAfterPeriod || isProperName) ? newVal[0].toUpperCase() : newVal[0].toLowerCase()
-        container.children[i].textContent = firstChar + newVal.slice(1)
-    }
-}
-
-function swapElements(obj1, obj2) {
-    const parent2 = obj2.parentNode;
-    const next2 = obj2.nextSibling;
-    if (next2 === obj1) {
-        parent2.insertBefore(obj1, obj2);
-    } else {
-        obj1.parentNode.insertBefore(obj2, obj1);
-        if (next2) {
-            parent2.insertBefore(obj1, next2);
-        } else {
-            parent2.appendChild(obj1);
-        }
+    for (child of container.children) {
+        const isFirst = child.previousSibling === null
+        const isAfterPeriod = child.previousSibling?.textContent.trim() === '.'
+        const isProperName = likelyProperNameMap[child.textContent.trim().toLowerCase()]
+        const capitalizeIt = isFirst || isAfterPeriod || isProperName
+        let firstLetter = child.textContent[0]
+        firstLetter = capitalizeIt ? firstLetter.toUpperCase() : firstLetter.toLowerCase()
+        child.textContent = firstLetter + child.textContent.slice(1)
     }
 }
 
@@ -95,23 +80,20 @@ function isInCorrectLocation(elem) {
 }
 
 function setWordFormatting(container) {
-    const numChildren = container.childElementCount
-    const wordsInRightSpots = []
-    for (var i = 0; i < numChildren; ++i) {
-        const child = container.children[i]
-        const spanText = child.textContent.trim()
-        wordsInRightSpots.push(false)
-        if (isPunctuation(spanText) && i > 0) {
-            wordsInRightSpots[i] = wordsInRightSpots[i - 1]
+    let prevIsCorrect = false
+    for (child of container.children) {
+        let isCorrect = false
+        if (child.previousSibling && child.classList.contains('punctuation')) {
+            // adopt formatting of previous word
+            isCorrect = prevIsCorrect
         }
         else {
-            wordsInRightSpots[i] = isInCorrectLocation(child)
+            isCorrect = isInCorrectLocation(child)
         }
-    }
-    for (var i = 0; i < numChildren; ++i) {
-        const child = container.children[i]
-        removeClassByPrefix(child, 'word')
-        child.classList.add(wordsInRightSpots[i] ? 'wordCorrect' : 'wordIncorrect')
+
+        child.classList.remove('wordCorrect', 'wordIncorrect', 'wordSelected')
+        child.classList.add(isCorrect ? 'wordCorrect' : 'wordIncorrect')
+        prevIsCorrect = isCorrect
     }
 }
 
@@ -128,4 +110,19 @@ function removeClassByPrefix(node, prefix) {
 	var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
 	node.className = node.className.replace(regx, '');
 	return node;
+}
+
+function swapElements(obj1, obj2) {
+    const parent2 = obj2.parentNode;
+    const next2 = obj2.nextSibling;
+    if (next2 === obj1) {
+        parent2.insertBefore(obj1, obj2);
+    } else {
+        obj1.parentNode.insertBefore(obj2, obj1);
+        if (next2) {
+            parent2.insertBefore(obj1, next2);
+        } else {
+            parent2.appendChild(obj1);
+        }
+    }
 }
