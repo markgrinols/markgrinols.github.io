@@ -74,7 +74,10 @@ const getRandomPuzzle = () => {
         "We few, we happy few, we band of brothers.",
         "My mother sacrificed her dreams so i could dream.",
         "Every time I travel I meet myself a little more.",
-        "And when wind and winter harden All the loveless land, It will whisper of the garden, You will understand.",
+        // this might just be too long. If there are going to be lines of poetry i need to figure
+        // out how to manage line breaks. I could consider it invisible punctuation in the code i guess.
+        // but invisible would be confusing to people i think? unless there was a vertical separation.
+        "And when wind and winter harden, all the loveless land, it will whisper of the garden, you will understand.",
         "The future belongs to those who believe in the beauty of their dreams.",
         "It is during our darkest moments that we must focus to see the light.",
         "In the end, it's not the years in your life that count. It's the life in your years.",

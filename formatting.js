@@ -104,15 +104,21 @@ function isInCorrectLocation(elem) {
 
 function setWordFormatting(container) {
     const numChildren = container.childElementCount
+    const wordsInRightSpots = []
     for (var i = 0; i < numChildren; ++i) {
         const child = container.children[i]
         const spanText = child.textContent.trim()
-                if (!isPunctuation(spanText) && isInCorrectLocation(child)) {
-           child.style.color = 'green'
+        wordsInRightSpots.push(false)
+        if (isPunctuation(spanText) && i > 0) {
+            wordsInRightSpots[i] = wordsInRightSpots[i - 1]
         }
         else {
-            child.style.color = 'black'
+            wordsInRightSpots[i] = isInCorrectLocation(child)
         }
+    }
+    for (var i = 0; i < numChildren; ++i) {
+        const child = container.children[i]
+        child.style.color = wordsInRightSpots[i] ? 'green' : 'black'
     }
 }
 
