@@ -7,41 +7,20 @@
 	<style>
 		#sentence {
 			font-size: 70pt;
-			user-select: none;
-			-webkit-user-select: none;
-			-ms-user-select: none;
-		}
-
-		.sortable-ghost {
-			opacity: 1;
-			color: red
-		}
-
-		.sortable-swap-highlight {
-			background-color: #9AB6F1;
-		}
-
-		.sortable-chosen {
-			opacity: 1;
-			color: blue
-		}
-
-		.sortable-drag {
-			opacity: 0;
-			color: white;
-			font-size: 0px
-		}
-
-		div#sentence {
 			margin-top:20%;
 			margin-left: 10%;
 			margin-right: 10%;
+			user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			touch-action: manipulation; /* blocks double tap zoom */
+			background: gray;
 		}
 	</style>
 </head>
 
 <body>
-	<pre style="font-size: 20pt">15</pre>
+	<pre style="font-size: 20pt">16</pre>
 	<div id="sentence" >
 		<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
 	</div>
