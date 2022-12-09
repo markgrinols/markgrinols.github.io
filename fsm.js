@@ -16,7 +16,7 @@ function createMachine(stateMachineDefinition) {
             destinationStateDefinition.actions.onEnter?.()
 
             machine.value = destinationState
-            console.log(`current state: ${machine.value}`)
+//            console.log(`current state: ${machine.value}`)
             return machine.value
         },
     }

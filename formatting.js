@@ -18,8 +18,7 @@ function setText(txt) {
     }
 
     // this will ultimately be removed - puzzles will not be random at runtime
-    words.reverse()
-    const shuffle = false
+    const shuffle = true
     if (shuffle) {
         // shuffle words, leaving punctuation in place
         const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
@@ -34,9 +33,8 @@ function setText(txt) {
         words = shuffledWords
     }
 
-
     for (el in words) {
-        txt = words[el]
+        const txt = words[el]
         const textSpan = document.createElement('span')
         if (isPunctuation(txt)) {
             textSpan.classList.add('punctuation');
@@ -46,21 +44,22 @@ function setText(txt) {
         const textNode = document.createTextNode(txt)
         textSpan.appendChild(textNode)
         container.appendChild(textSpan)
-//        container.appendChild(document.createElement('span').appendChild(document.createTextNode(' ')))
     }
 }
 
-function isPunctuation(str) {
-    return /[.;:?,]/.test(str)
+function refreshTextPresentation() {
+    setCorrectSpaces()
+    restoreCapitalization()
+    setWordFormatting()
 }
 
 function setCorrectSpaces() {
+
     for (child of container.children) {
         const txt = child.textContent.trim()
         child.textContent = txt
-        if (!child.nextSibling?.classList.contains('punctuation')) {
-            child.textContent += " "
-        }
+        const isNextElemPunc = child.nextSibling?.classList.contains('punctuation') || false
+        child.style.marginRight = isNextElemPunc ? '0px': '20px'
     }
 }
 
@@ -103,16 +102,33 @@ function setWordFormatting() {
     }
 }
 
-function doVisualSwap(container, a, b) {
+function doVisualSwap(a, b) {
+    if (getChildIndex(a) > getChildIndex(b)) {
+        // hack: if b is before a in the dom, after the
+        // transition, b re-animates right to left
+        const tmp = a
+        a = b
+        b = tmp
+    }
+
     wordsToSwap = [a, b]
-    const sentence = document.querySelector('#sentence')
     const posA = getPositionRelativeToParent(a)
     const posB = getPositionRelativeToParent(b)
 
-    const transLeftA = posB.left - posA.left
-    const transTopA = posB.top - posA.top
-    const transLeftB = posA.left - posB.left
-    const transTopB = posA.top - posB.top
+    let transLeftA = posB.centerX - posA.centerX
+    let transTopA = posB.centerY - posA.centerY
+    let transLeftB = posA.centerX - posB.centerX
+    let transTopB = posA.centerY - posB.centerY
+
+    if (posA.top === posB.top) {
+        const shiftAmount = (posB.width - posA.width) / 2
+        transLeftA += shiftAmount
+        transLeftB += shiftAmount
+    }
+    else {
+        transLeftA += (posA.width - posB.width) / 2
+        transLeftB += (posB.width - posA.width) / 2
+    }
 
     a.style.setProperty('--transLeft', `${transLeftA}px`)
     a.style.setProperty('--transTop', `${transTopA}px`)
@@ -131,16 +147,10 @@ function endTransition(ev) {
     wordsToSwap = null
     a.classList.remove('wordSwap')
     b.classList.remove('wordSwap')
+    a.style.removeProperty('--transLeft')
+    a.style.removeProperty('--transTop')
     swapElements(a, b)
-}
-
-function secondSwapPhase(cloneWordsContainer) {
-    console.log('phase 2')
-    const pos = getPositionRelativeToParent(cloneWordsContainer.lastElementChild)
-    console.log(`pos: ${JSON.stringify(pos)}`)
-
-    drawDebugBox(cloneWordsContainer, pos)
-    // get new positions and kick off animations
+    refreshTextPresentation()
 }
 
 function drawDebugBox(parent, pos) {
@@ -164,23 +174,22 @@ function getPositionRelativeToParent(el) {
     relPos.bottom = childPos.bottom - parentPos.bottom
     relPos.left = childPos.left - parentPos.left
 
+    relPos.centerX = childPos.x + childPos.width / 2
+    relPos.centerY = childPos.y + childPos.height / 2
+
+    relPos.width = childPos.width
+    relPos.height = childPos.height
+
     return relPos
 }
 
 function selectWord(el) {
     el.classList.add('wordSelected')
-    console.log(`offsetLeft: ${el.offsetLeft} offsetTop: ${el.offsetTop}`)
 }
 
 function getChildIndex(node) {
     return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
-
-// function removeClassByPrefix(node, prefix) {
-// 	var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
-// 	node.className = node.className.replace(regx, '');
-// 	return node;
-// }
 
 function swapElements(obj1, obj2) {
     const parent2 = obj2.parentNode;
@@ -195,4 +204,8 @@ function swapElements(obj1, obj2) {
             parent2.appendChild(obj1);
         }
     }
+}
+
+function isPunctuation(str) {
+    return /[.;:?,]/.test(str)
 }

@@ -4,7 +4,7 @@ const machine = createMachine({
     noSelection: {
         actions: {
             onEnter() {
-                refreshText()
+                refreshTextPresentation()
                 selectedWord = undefined
             }
         },
@@ -41,12 +41,6 @@ const machine = createMachine({
     },
 })
 
-const refreshText = () => {
-    setCorrectSpaces(container)
-    restoreCapitalization(container)
-    setWordFormatting(container)
-}
-
 const pointerDownOnPuzzleWords = (ev) => {
     el = ev.srcElement
     if (el.classList.contains('wordIncorrect')) {
@@ -57,15 +51,12 @@ const pointerDownOnPuzzleWords = (ev) => {
 
 const swapWords = (a, b) => {
     if (a !== b) {
-        console.log(`doVisualSwap ${a.textContent} -> ${b.textContent}`)
-//        swapElements(a, b)
-        doVisualSwap(container, a, b)
+        doVisualSwap(a, b)
     }
 }
 
 const getRandomPuzzle = () => {
     const puzzles = [
-        "This is a test. A pretty long, boring test. But the beauty is in it's length, many great words.",
         "By all means, move at a glacial pace. You know how that thrills me.",
         "The way to get started is quit talking and begin doing.",
         "Don't judge each day by the harvest you reap but by the seeds that you plant.",
@@ -90,15 +81,14 @@ const getRandomPuzzle = () => {
         "I find that the harder I work, the more luck I seem to have.",
     ]
 
-//    return puzzles[Math.floor(Math.random() * puzzles.length)]
-    return puzzles[0]
+    return puzzles[Math.floor(Math.random() * puzzles.length)]
 }
 
 let selectedWord = undefined
 
 const container = document.getElementById("draggable");
 setText(getRandomPuzzle())
-refreshText()
+refreshTextPresentation()
 
 let state = machine.value
 console.log(`current state: ${state}`)
