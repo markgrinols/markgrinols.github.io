@@ -33,17 +33,22 @@ function setText(txt) {
         words = shuffledWords
     }
 
-    for (el in words) {
-        const txt = words[el]
+    for (i in words.reverse()) {
+        const txt = words[i]
         const textSpan = document.createElement('span')
         if (isPunctuation(txt)) {
             textSpan.classList.add('punctuation');
         }else {
             textSpan.classList.add('word');
+            if (i > 0 && isPunctuation(words[i - 1])) {
+                textSpan.style.whiteSpace = 'nowrap'
+            }
         }
+
+
         const textNode = document.createTextNode(txt)
-        textSpan.appendChild(textNode)
-        container.appendChild(textSpan)
+        textSpan.prepend(textNode)
+        container.prepend(textSpan)
     }
 }
 
