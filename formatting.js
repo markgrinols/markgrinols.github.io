@@ -101,8 +101,8 @@ function setWordFormatting() {
             isCorrect = isInCorrectLocation(child)
         }
 
-        child.classList.remove('wordCorrect', 'wordIncorrect', 'wordSelected')
-        child.classList.add(isCorrect ? 'wordCorrect' : 'wordIncorrect')
+        child.classList.remove('correct', 'incorrect', 'wordSelected')
+        child.classList.add(isCorrect ? 'correct' : 'incorrect')
         prevIsCorrect = isCorrect
     }
 }

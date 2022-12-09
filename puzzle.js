@@ -43,7 +43,7 @@ const machine = createMachine({
 
 const pointerDownOnPuzzleWords = (ev) => {
     el = ev.srcElement
-    if (el.classList.contains('wordIncorrect')) {
+    if (el.classList.contains('incorrect') && !el.classList.contains('punctuation')) {
         state = machine.transition(state, "selectWord", { elem: el})
         ev.preventDefault() // trying to prevent double tap to zoom
     }
