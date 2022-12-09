@@ -19,7 +19,7 @@
 		.word {
 			display: inline-block;
 			position: relative;
-			transition: color 200ms ease-in-out, transform 500ms ease-in-out;
+			transition: transform 500ms ease-in-out;
 		}
 		.wordCorrect {
 			color: green;
@@ -31,7 +31,7 @@
 			color: red;
 		}
 		.wordSwap {
-			/*transform: translate(100px, 100px);*/
+			transform: translate(var(--transLeft), var(--transTop));
 		}
 		.isPunctuation {
 			/* not currently in use */
@@ -44,14 +44,6 @@
 		}
 		#layoutTest {
 			/*position:relative;*/
-		}
-		.temp {
-			position:relative;
-			background-color: orange;
-			width: 15px;
-			height: 15px;
-			top: 215px;
-			left: 729px;
 		}
 	</style>
 </head>

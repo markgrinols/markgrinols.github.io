@@ -1,5 +1,6 @@
 const likelyProperNameMap = {}
 let original_word_list = []
+let wordsToSwap = []
 
 function setText(txt) {
 
@@ -103,36 +104,34 @@ function setWordFormatting() {
 }
 
 function doVisualSwap(container, a, b) {
-        // a.style.opacity = 1
-        // b.style.opacity = 1
+    wordsToSwap = [a, b]
+    const sentence = document.querySelector('#sentence')
+    const posA = getPositionRelativeToParent(a)
+    const posB = getPositionRelativeToParent(b)
 
-        // const c = a.cloneNode(true)
-        // c.style.color = 'orange'
-//        a.classList.add('wordSwap')
-    firstSwapPhase(a, b)
+    const transLeftA = posB.left - posA.left
+    const transTopA = posB.top - posA.top
+    const transLeftB = posA.left - posB.left
+    const transTopB = posA.top - posB.top
+
+    a.style.setProperty('--transLeft', `${transLeftA}px`)
+    a.style.setProperty('--transTop', `${transTopA}px`)
+    b.style.setProperty('--transLeft', `${transLeftB}px`)
+    b.style.setProperty('--transTop', `${transTopB}px`)
+
+    a.addEventListener('transitionend', endTransition, { once: true })
+    a.classList.add('wordSwap')
+    b.classList.add('wordSwap')
+    console.log('swapped')
 }
 
-function firstSwapPhase(a, b) {
-    const sentence = document.querySelector('#sentence')
-    const clone = sentence.cloneNode(true)
-
-    // items that will always be true and can be put in css
-    clone.style.position = 'absolute'
-    clone.style.backgroundColor = 'gray'
-    const p = sentence.getBoundingClientRect()
-    const fuck = 0 //`${-1 * p.top}px`
-    clone.style.top = fuck
-    clone.style.marginTop = 0
-    clone.style.marginBottom = 0
-    clone.style.opacity = 1
-
-    // swap words
-//    swapElements
-
-    document.body.prepend(clone)
-    console.log('phase 1')
-    const cloneWordsContainer = clone.lastElementChild
-    setTimeout(secondSwapPhase(cloneWordsContainer), 100)
+function endTransition(ev) {
+    const a = wordsToSwap[0]
+    const b = wordsToSwap[1]
+    wordsToSwap = null
+    a.classList.remove('wordSwap')
+    b.classList.remove('wordSwap')
+    swapElements(a, b)
 }
 
 function secondSwapPhase(cloneWordsContainer) {
@@ -140,12 +139,19 @@ function secondSwapPhase(cloneWordsContainer) {
     const pos = getPositionRelativeToParent(cloneWordsContainer.lastElementChild)
     console.log(`pos: ${JSON.stringify(pos)}`)
 
-    const testDiv = document.createElement('div')
-    testDiv.classList.add('temp');
-    cloneWordsContainer.appendChild(testDiv)
-
-
+    drawDebugBox(cloneWordsContainer, pos)
     // get new positions and kick off animations
+}
+
+function drawDebugBox(parent, pos) {
+    const testDiv = document.createElement('div')
+    testDiv.style.position = 'absolute'
+    testDiv.style.backgroundColor = 'orange'
+    testDiv.style.width = '15px'
+    testDiv.style.height = '15px'
+    testDiv.style.top = `${pos.top}px`
+    testDiv.style.left = `${pos.left}px`
+    parent.appendChild(testDiv)
 }
 
 function getPositionRelativeToParent(el) {
@@ -163,11 +169,7 @@ function getPositionRelativeToParent(el) {
 
 function selectWord(el) {
     el.classList.add('wordSelected')
-//    el.classList.add('wordSwap')
-
-
-
-
+    console.log(`offsetLeft: ${el.offsetLeft} offsetTop: ${el.offsetTop}`)
 }
 
 function getChildIndex(node) {
