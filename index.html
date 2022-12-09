@@ -14,7 +14,12 @@
 			-webkit-user-select: none;
 			-ms-user-select: none;
 			touch-action: manipulation; /* blocks double tap zoom */
-			background: #ddd;
+			background: #f3f3f3;
+		}
+		.word {
+			display: inline-block;
+			position: relative;
+			transition: color 200ms ease-in-out, transform 500ms ease-in-out;
 		}
 		.wordCorrect {
 			color: green;
@@ -25,13 +30,34 @@
 		.wordSelected {
 			color: red;
 		}
+		.wordSwap {
+			/*transform: translate(100px, 100px);*/
+		}
 		.isPunctuation {
+			/* not currently in use */
+		}
+
+		.testA {
+			display: inline-block;
+			position: relative;
+			color: green;
+		}
+		#layoutTest {
+			/*position:relative;*/
+		}
+		.temp {
+			position:relative;
+			background-color: orange;
+			width: 15px;
+			height: 15px;
+			top: 215px;
+			left: 729px;
 		}
 	</style>
 </head>
 
 <body>
-	<pre style="font-size: 20pt">18</pre>
+	<pre style="font-size: 20pt">20</pre>
 	<div id="sentence">
 		<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
 	</div>

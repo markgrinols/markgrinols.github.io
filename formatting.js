@@ -1,7 +1,8 @@
 const likelyProperNameMap = {}
 let original_word_list = []
 
-function setText(container, txt) {
+function setText(txt) {
+
     txtWithSpaces = txt.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
     let words = txtWithSpaces.split(' ')
 
@@ -15,7 +16,9 @@ function setText(container, txt) {
         likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
     }
 
-    const shuffle = true
+    // this will ultimately be removed - puzzles will not be random at runtime
+    words.reverse()
+    const shuffle = false
     if (shuffle) {
         // shuffle words, leaving punctuation in place
         const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
@@ -27,19 +30,22 @@ function setText(container, txt) {
             const newWord = isPunc ?  words[i] : words[shuffledIndexes.pop()]
             shuffledWords.push( newWord )
         }
-
         words = shuffledWords
     }
+
 
     for (el in words) {
         txt = words[el]
         const textSpan = document.createElement('span')
         if (isPunctuation(txt)) {
             textSpan.classList.add('punctuation');
+        }else {
+            textSpan.classList.add('word');
         }
         const textNode = document.createTextNode(txt)
         textSpan.appendChild(textNode)
         container.appendChild(textSpan)
+//        container.appendChild(document.createElement('span').appendChild(document.createTextNode(' ')))
     }
 }
 
@@ -47,7 +53,7 @@ function isPunctuation(str) {
     return /[.;:?,]/.test(str)
 }
 
-function setCorrectSpaces(container) {
+function setCorrectSpaces() {
     for (child of container.children) {
         const txt = child.textContent.trim()
         child.textContent = txt
@@ -57,7 +63,7 @@ function setCorrectSpaces(container) {
     }
 }
 
-function restoreCapitalization(container) {
+function restoreCapitalization() {
     // if word is first word or after a period, or is capitlized in likelyProperNameMap
     // make capital, else don't.
     const numChildren = container.childElementCount
@@ -79,13 +85,12 @@ function isInCorrectLocation(elem) {
     return  original_word_list[container_loc] === spanText
 }
 
-function setWordFormatting(container) {
+function setWordFormatting() {
     let prevIsCorrect = false
     for (child of container.children) {
         let isCorrect = false
         if (child.previousSibling && child.classList.contains('punctuation')) {
-            // adopt formatting of previous word
-            isCorrect = prevIsCorrect
+            isCorrect = prevIsCorrect // adopt formatting of previous word
         }
         else {
             isCorrect = isInCorrectLocation(child)
@@ -97,19 +102,83 @@ function setWordFormatting(container) {
     }
 }
 
+function doVisualSwap(container, a, b) {
+        // a.style.opacity = 1
+        // b.style.opacity = 1
+
+        // const c = a.cloneNode(true)
+        // c.style.color = 'orange'
+//        a.classList.add('wordSwap')
+    firstSwapPhase(a, b)
+}
+
+function firstSwapPhase(a, b) {
+    const sentence = document.querySelector('#sentence')
+    const clone = sentence.cloneNode(true)
+
+    // items that will always be true and can be put in css
+    clone.style.position = 'absolute'
+    clone.style.backgroundColor = 'gray'
+    const p = sentence.getBoundingClientRect()
+    const fuck = 0 //`${-1 * p.top}px`
+    clone.style.top = fuck
+    clone.style.marginTop = 0
+    clone.style.marginBottom = 0
+    clone.style.opacity = 1
+
+    // swap words
+//    swapElements
+
+    document.body.prepend(clone)
+    console.log('phase 1')
+    const cloneWordsContainer = clone.lastElementChild
+    setTimeout(secondSwapPhase(cloneWordsContainer), 100)
+}
+
+function secondSwapPhase(cloneWordsContainer) {
+    console.log('phase 2')
+    const pos = getPositionRelativeToParent(cloneWordsContainer.lastElementChild)
+    console.log(`pos: ${JSON.stringify(pos)}`)
+
+    const testDiv = document.createElement('div')
+    testDiv.classList.add('temp');
+    cloneWordsContainer.appendChild(testDiv)
+
+
+    // get new positions and kick off animations
+}
+
+function getPositionRelativeToParent(el) {
+    const parentPos = el.parentNode.getBoundingClientRect()
+    const childPos = el.getBoundingClientRect()
+    const relPos = {}
+
+    relPos.top = childPos.top - parentPos.top
+    relPos.right = childPos.right - parentPos.right
+    relPos.bottom = childPos.bottom - parentPos.bottom
+    relPos.left = childPos.left - parentPos.left
+
+    return relPos
+}
+
 function selectWord(el) {
     el.classList.add('wordSelected')
+//    el.classList.add('wordSwap')
+
+
+
+
 }
 
 function getChildIndex(node) {
     return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
 }
 
-function removeClassByPrefix(node, prefix) {
-	var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
-	node.className = node.className.replace(regx, '');
-	return node;
-}
+// function removeClassByPrefix(node, prefix) {
+// 	var regx = new RegExp('\\b' + prefix + '[^ ]*[ ]?\\b', 'g');
+// 	node.className = node.className.replace(regx, '');
+// 	return node;
+// }
 
 function swapElements(obj1, obj2) {
     const parent2 = obj2.parentNode;
