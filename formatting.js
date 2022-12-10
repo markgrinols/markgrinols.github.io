@@ -9,7 +9,7 @@ let firstSelectedWord = null
 // todo: rename this file
 function setText(txt) {
 
-    txtWithSpaces = txt.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
+    const txtWithSpaces = txt.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
     let words = txtWithSpaces.split(' ')
 
     original_word_list = [...words].map( (x) => x.toLowerCase())
@@ -92,11 +92,11 @@ function refreshTextPresentation() {
 }
 
 function setCorrectSpaces() {
-    for(el of flatWordElems) {
+    for(let el of flatWordElems) {
         el.style.marginRight = '0px'
     }
 
-    for (el of container.children) {
+    for (let el of container.children) {
         if (el.classList.contains('nowrap') || el.classList.contains('word')) {
             el.style.marginRight = '20px'
         }
@@ -263,7 +263,7 @@ function isPunctuation(str) {
 }
 
 function getDescendantElements(elem, all = []) {
-    for (child of elem.children) {
+    for (let child of elem.children) {
         all.push(child)
         getDescendantElements(child, all)
     }
@@ -281,3 +281,5 @@ function drawDebugBox(parent, pos) {
     testDiv.style.left = `${pos.left}px`
     parent.appendChild(testDiv)
 }
+
+export { setText, selectWord }
