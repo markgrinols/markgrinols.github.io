@@ -1,8 +1,10 @@
+const container = document.getElementById("draggable");
 const likelyProperNameMap = {}
 let original_word_list = []
 let wordsToSwap = []
-const flatElementList = []
+let flatWordElems = []
 
+// todo: rename this file
 function setText(txt) {
 
     txtWithSpaces = txt.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
@@ -43,6 +45,7 @@ function buildDomTree(words) {
     // anytinme there is punctuation, the previous word and the punctuation
     // character(s) are parented to an intermediate span with 'nowrap' style.
     // these wrapper spans are siblings to the regular word spans.
+    container.replaceChildren()
     for (let i = words.length - 1; i >= 0; i--) {
         let txtContent = words[i]
         let noWrapSpan = null
@@ -72,11 +75,11 @@ function buildDomTree(words) {
         }
     }
 
-    updateflatElementList()
+    updateFlatElemList()
 }
 
-function updateflatElementList() {
-    flatElementList = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
+function updateFlatElemList() {
+    flatWordElems = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
 }
 
 function refreshTextPresentation() {
@@ -86,13 +89,13 @@ function refreshTextPresentation() {
 }
 
 function setCorrectSpaces() {
+    for(el of flatWordElems) {
+        el.style.marginRight = '0px'
+    }
+
     for (el of container.children) {
-        if (el.classList.contains('nowrap') || el.classList.contains('word'))
-        {
+        if (el.classList.contains('nowrap') || el.classList.contains('word')) {
             el.style.marginRight = '20px'
-        }
-        else {
-            el.style.marginRight = '0px'
         }
     }
 }
@@ -100,13 +103,12 @@ function setCorrectSpaces() {
 function restoreCapitalization() {
     // if word is first word or after a period, or is capitlized in likelyProperNameMap
     // make capital, else don't.
-    const elements = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
-    for(let i = 0; i < elements.length; i++) {
-        const el = elements[i]
+    for(let i = 0; i < flatWordElems.length; i++) {
+        const el = flatWordElems[i]
         const text = el.textContent?.trim()
         const isFirst = i == 0
-        const isAfterPeriod = elements[i - 1]?.classList.contains('punctuation') &&
-        elements[i - 1].textContent === '.'
+        const isAfterPeriod = flatWordElems[i - 1]?.classList.contains('punctuation') &&
+        flatWordElems[i - 1].textContent === '.'
         const isProperName = likelyProperNameMap[text.toLowerCase()]
         const capitalizeIt = isFirst || isAfterPeriod || isProperName
         let firstLetter = text[0]
@@ -116,16 +118,15 @@ function restoreCapitalization() {
 }
 
 function isInCorrectLocation(elem) {
-    const container_loc = getChildIndex(elem)
+    const container_loc = flatWordElems.indexOf(elem)
     const spanText = elem.textContent.trim().toLowerCase()
     return  original_word_list[container_loc] === spanText
 }
 
 function setWordFormatting() {
     let prevIsCorrect = false
-    const elements = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
-    for(let i = 0; i < elements.length; i++) {
-        const child = elements[i]
+    for(let i = 0; i < flatWordElems.length; i++) {
+        const child = flatWordElems[i]
         const text = child.textContent?.trim()
 
         let isCorrect = false
@@ -143,7 +144,8 @@ function setWordFormatting() {
 }
 
 function swapWords(a, b) {
-    if (getChildIndex(a) > getChildIndex(b)) {
+    if (a === b) return
+    if (flatWordElems.indexOf(a) > flatWordElems.indexOf(b)) {
         // hack: if b is before a in the dom, after the
         // transition, b re-animates right to left
         const tmp = a
@@ -190,18 +192,8 @@ function endTransition(ev) {
     a.style.removeProperty('--transLeft')
     a.style.removeProperty('--transTop')
     swapElements(a, b)
+    updateFlatElemList()
     refreshTextPresentation()
-}
-
-function drawDebugBox(parent, pos) {
-    const testDiv = document.createElement('div')
-    testDiv.style.position = 'absolute'
-    testDiv.style.backgroundColor = 'orange'
-    testDiv.style.width = '15px'
-    testDiv.style.height = '15px'
-    testDiv.style.top = `${pos.top}px`
-    testDiv.style.left = `${pos.left}px`
-    parent.appendChild(testDiv)
 }
 
 function getPositionRelativeToParent(el) {
@@ -223,15 +215,6 @@ function getPositionRelativeToParent(el) {
     return relPos
 }
 
-function selectWord(el) {
-    el.classList.add('wordSelected')
-}
-
-function getChildIndex(node) {
-    const elements = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
-    return Array.prototype.indexOf.call(elements, node);
-}
-
 function swapElements(obj1, obj2) {
     const parent2 = obj2.parentNode;
     const next2 = obj2.nextSibling;
@@ -247,6 +230,10 @@ function swapElements(obj1, obj2) {
     }
 }
 
+function selectWord(el) {
+    el.classList.add('wordSelected')
+}
+
 function isPunctuation(str) {
     return /[.;:?,]/.test(str)
 }
@@ -258,4 +245,15 @@ function getDescendantElements(elem, all = []) {
     }
 
     return all
+}
+
+function drawDebugBox(parent, pos) {
+    const testDiv = document.createElement('div')
+    testDiv.style.position = 'absolute'
+    testDiv.style.backgroundColor = 'orange'
+    testDiv.style.width = '15px'
+    testDiv.style.height = '15px'
+    testDiv.style.top = `${pos.top}px`
+    testDiv.style.left = `${pos.left}px`
+    parent.appendChild(testDiv)
 }
