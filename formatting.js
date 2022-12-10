@@ -1,5 +1,5 @@
 const container = document.getElementById("draggable");
-const likelyProperNameMap = {}
+const likelyProperNounMap = {}
 let original_word_list = []
 let wordsToSwap = []
 let flatWordElems = []
@@ -17,7 +17,7 @@ function setText(txt) {
         // if word is capitlized, but is not first letter or after a period, assume it's propername.
         // Not perfect, breaks on "God is dead."
         const word = words[i]
-        likelyProperNameMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
+        likelyProperNounMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
     }
 
     // this will ultimately be removed - puzzles will not be random at runtime
@@ -41,9 +41,9 @@ function setText(txt) {
 
 function buildDomTree(words) {
     // due to linebreaking behavior for inline-block elements, the
-    // tree has a funky structure which complicates everyting.
-    // anytinme there is punctuation, the previous word and the punctuation
-    // character(s) are parented to an intermediate span with 'nowrap' style.
+    // tree structure is funky. When there is punctuation,
+    // the previous word and the punctuation character(s) are
+    // parented to an intermediate span with 'nowrap' style.
     // these wrapper spans are siblings to the regular word spans.
     container.replaceChildren()
     for (let i = words.length - 1; i >= 0; i--) {
@@ -109,7 +109,7 @@ function restoreCapitalization() {
         const isFirst = i == 0
         const isAfterPeriod = flatWordElems[i - 1]?.classList.contains('punctuation') &&
         flatWordElems[i - 1].textContent === '.'
-        const isProperName = likelyProperNameMap[text.toLowerCase()]
+        const isProperName = likelyProperNounMap[text.toLowerCase()]
         const capitalizeIt = isFirst || isAfterPeriod || isProperName
         let firstLetter = text[0]
         firstLetter = capitalizeIt ? firstLetter.toUpperCase() : firstLetter.toLowerCase()
@@ -154,8 +154,8 @@ function swapWords(a, b) {
     }
 
     wordsToSwap = [a, b]
-    const posA = getPositionRelativeToParent(a)
-    const posB = getPositionRelativeToParent(b)
+    const posA = getPositionRelativeToContainer(a)
+    const posB = getPositionRelativeToContainer(b)
 
     let transLeftA = posB.centerX - posA.centerX
     let transTopA = posB.centerY - posA.centerY
@@ -191,13 +191,13 @@ function endTransition(ev) {
     b.classList.remove('wordSwap')
     a.style.removeProperty('--transLeft')
     a.style.removeProperty('--transTop')
-    swapElements(a, b)
+    swapDomElements(a, b)
     updateFlatElemList()
     refreshTextPresentation()
 }
 
-function getPositionRelativeToParent(el) {
-    const parentPos = el.parentNode.getBoundingClientRect()
+function getPositionRelativeToContainer(el) {
+    const parentPos = container.getBoundingClientRect()
     const childPos = el.getBoundingClientRect()
     const relPos = {}
 
@@ -215,7 +215,7 @@ function getPositionRelativeToParent(el) {
     return relPos
 }
 
-function swapElements(obj1, obj2) {
+function swapDomElements(obj1, obj2) {
     const parent2 = obj2.parentNode;
     const next2 = obj2.nextSibling;
     if (next2 === obj1) {
