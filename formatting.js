@@ -184,7 +184,6 @@ function swapWords(a, b) {
     a.addEventListener('transitionend', endTransition, { once: true })
     a.classList.add('wordSwap')
     b.classList.add('wordSwap')
-    console.log('swapped')
 }
 
 function endTransition(ev) {
@@ -243,8 +242,7 @@ function selectWord(el) {
         return
     }
     if (el == firstSelectedWord) {
-        refreshTextPresentation()
-        firstSelectedWord = null
+        clearSelection()
         return
     }
     if(!firstSelectedWord) {
@@ -256,6 +254,11 @@ function selectWord(el) {
         swapWords(firstSelectedWord, el)
         firstSelectedWord = null
     }
+}
+
+function clearSelection() {
+    refreshTextPresentation()
+    firstSelectedWord = null
 }
 
 function isPunctuation(str) {
@@ -282,4 +285,4 @@ function drawDebugBox(parent, pos) {
     parent.appendChild(testDiv)
 }
 
-export { setText, selectWord }
+export { setText, selectWord, clearSelection }
