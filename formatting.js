@@ -3,6 +3,8 @@ const likelyProperNounMap = {}
 let original_word_list = []
 let wordsToSwap = []
 let flatWordElems = []
+let isSwapping = false
+let firstSelectedWord = null
 
 // todo: rename this file
 function setText(txt) {
@@ -37,6 +39,7 @@ function setText(txt) {
     }
 
     buildDomTree(words)
+    refreshTextPresentation()
 }
 
 function buildDomTree(words) {
@@ -145,6 +148,7 @@ function setWordFormatting() {
 
 function swapWords(a, b) {
     if (a === b) return
+    isSwapping = true
     if (flatWordElems.indexOf(a) > flatWordElems.indexOf(b)) {
         // hack: if b is before a in the dom, after the
         // transition, b re-animates right to left
@@ -194,6 +198,7 @@ function endTransition(ev) {
     swapDomElements(a, b)
     updateFlatElemList()
     refreshTextPresentation()
+    isSwapping = false
 }
 
 function getPositionRelativeToContainer(el) {
@@ -231,7 +236,26 @@ function swapDomElements(obj1, obj2) {
 }
 
 function selectWord(el) {
-    el.classList.add('wordSelected')
+    if (isSwapping) {
+        return
+    }
+    if (!(el.classList.contains('word') && el.classList.contains('incorrect'))) {
+        return
+    }
+    if (el == firstSelectedWord) {
+        refreshTextPresentation()
+        firstSelectedWord = null
+        return
+    }
+    if(!firstSelectedWord) {
+        el.classList.add('wordSelected')
+        firstSelectedWord = el  // move to formatting
+    }
+    else {
+        el.classList.add('wordSelected')
+        swapWords(firstSelectedWord, el)
+        firstSelectedWord = null
+    }
 }
 
 function isPunctuation(str) {

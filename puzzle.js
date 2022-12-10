@@ -1,52 +1,9 @@
 
-const machine = createMachine({
-    initialState: 'noSelection',
-    noSelection: {
-        actions: {
-            onEnter() {
-                refreshTextPresentation()
-                selectedWord = undefined
-            }
-        },
-        transitions: {
-            selectWord: {
-                target: 'oneWordSelected',
-                action(payload) {
-                    selectWord(payload.elem)
-                    selectedWord = payload.elem
-                }
-            }
-        },
-    },
-    oneWordSelected: {
-        actions: {
-            onEnter() {
-            },
-            onExit() {
-            },
-        },
-        transitions: {
-            selectWord: {
-                target: 'noSelection',
-                action(payload) {
-                    swapWords(selectedWord, payload.elem)
-                },
-            },
-            clearSelection: {
-                target: 'noSelection',
-                action() {
-                }
-            },
-        },
-    },
-})
 
 const pointerDownOnPuzzleWords = (ev) => {
+    ev.preventDefault() // trying to prevent double tap to zoom
     el = ev.srcElement
-    if (el.classList.contains('incorrect') && !el.classList.contains('punctuation')) {
-        state = machine.transition(state, "selectWord", { elem: el})
-        ev.preventDefault() // trying to prevent double tap to zoom
-    }
+    selectWord(el)
 }
 
 const getRandomPuzzle = () => {
@@ -79,10 +36,4 @@ const getRandomPuzzle = () => {
     return puzzles[Math.floor(Math.random() * puzzles.length)]
 }
 
-let selectedWord = undefined
-
 setText(getRandomPuzzle())
-refreshTextPresentation()
-
-let state = machine.value
-console.log(`current state: ${state}`)

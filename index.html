@@ -29,7 +29,7 @@
 			color: black;
 		}
 		.wordSelected {
-			color: red;
+			text-decoration: underline dotted #00000050;
 		}
 		.wordSwap {
 			transform: translate(var(--transLeft), var(--transTop));
@@ -38,14 +38,13 @@
 			white-space: nowrap;
 		}
 		.punctuation {
-			white-space: nowrap;
 		}
 	</style>
 </head>
 
 <body>
 
-	<pre style="font-size: 20pt">23</pre>
+	<pre style="font-size: 20pt">25</pre>
 	<div id="sentence">
 		<div>
 			<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
