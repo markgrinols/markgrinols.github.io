@@ -49,12 +49,6 @@ const pointerDownOnPuzzleWords = (ev) => {
     }
 }
 
-const swapWords = (a, b) => {
-    if (a !== b) {
-        swapWords(a, b)
-    }
-}
-
 const getRandomPuzzle = () => {
     const puzzles = [
         "By all means, move at a glacial pace. You know how that thrills me.",
@@ -86,7 +80,6 @@ const getRandomPuzzle = () => {
 
 let selectedWord = undefined
 
-const container = document.getElementById("draggable");
 setText(getRandomPuzzle())
 refreshTextPresentation()
 
