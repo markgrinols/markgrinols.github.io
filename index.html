@@ -23,7 +23,6 @@
 			display: inline-block;
 			position: relative;
 			transition: transform 700ms ease-in-out;
-			margin-right: 15px;
 		}
 		.correct {
 			color: green;
@@ -37,16 +36,28 @@
 		.wordSwap {
 			transform: translate(var(--transLeft), var(--transTop));
 		}
+		.nowrap {
+			white-space: nowrap;
+		}
 		.punctuation {
-			/* not currently in use */
+			white-space: nowrap;
 		}
 	</style>
 </head>
 
 <body>
-	<pre style="font-size: 20pt">21</pre>
+
+	<pre style="font-size: 20pt">22</pre>
 	<div id="sentence">
-		<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
+		<div style="font-size: 70px; display:inline-block; position:relative">
+			this is a long and stuff
+			<span style="white-space: nowrap">
+				<span style="display:inline-block;">test</span><span style="display:inline-block">.</span>
+			</span>
+		</div>
+		<div>
+			<span id="draggable" onpointerdown="pointerDownOnPuzzleWords(event)"></span>
+		</div>
 	</div>
 </body>
 

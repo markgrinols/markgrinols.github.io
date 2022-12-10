@@ -51,7 +51,7 @@ const pointerDownOnPuzzleWords = (ev) => {
 
 const swapWords = (a, b) => {
     if (a !== b) {
-        doVisualSwap(a, b)
+        swapWords(a, b)
     }
 }
 
@@ -80,7 +80,7 @@ const getRandomPuzzle = () => {
         "Success is not final; failure is not fatal: It is the courage to continue that counts.",
         "I find that the harder I work, the more luck I seem to have.",
     ]
-
+    return puzzles[0]
     return puzzles[Math.floor(Math.random() * puzzles.length)]
 }
 

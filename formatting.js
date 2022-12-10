@@ -1,6 +1,7 @@
 const likelyProperNameMap = {}
 let original_word_list = []
 let wordsToSwap = []
+const flatElementList = []
 
 function setText(txt) {
 
@@ -33,23 +34,49 @@ function setText(txt) {
         words = shuffledWords
     }
 
-    for (i in words.reverse()) {
-        const txt = words[i]
-        const textSpan = document.createElement('span')
-        if (isPunctuation(txt)) {
-            textSpan.classList.add('punctuation');
-        }else {
-            textSpan.classList.add('word');
-            if (i > 0 && isPunctuation(words[i - 1])) {
-                textSpan.style.whiteSpace = 'nowrap'
+    buildDomTree(words)
+}
+
+function buildDomTree(words) {
+    // due to linebreaking behavior for inline-block elements, the
+    // tree has a funky structure which complicates everyting.
+    // anytinme there is punctuation, the previous word and the punctuation
+    // character(s) are parented to an intermediate span with 'nowrap' style.
+    // these wrapper spans are siblings to the regular word spans.
+    for (let i = words.length - 1; i >= 0; i--) {
+        let txtContent = words[i]
+        let noWrapSpan = null
+        if (isPunctuation(txtContent)) {
+            noWrapSpan = document.createElement('span')
+            noWrapSpan.classList.add('nowrap')
+            while (isPunctuation(txtContent)) {
+                const puncSpan = document.createElement('span')
+                puncSpan.classList.add('punctuation')
+                puncSpan.appendChild(document.createTextNode(txtContent))
+                noWrapSpan.appendChild(puncSpan)
+                i--
+                txtContent = words[i]
             }
         }
 
+        const wordSpan = document.createElement('span')
+        wordSpan.classList.add('word')
+        wordSpan.prepend(document.createTextNode(txtContent))
 
-        const textNode = document.createTextNode(txt)
-        textSpan.prepend(textNode)
-        container.prepend(textSpan)
+        if (noWrapSpan) {
+            noWrapSpan.prepend(wordSpan)
+            container.prepend(noWrapSpan)
+        }
+        else {
+            container.prepend(wordSpan)
+        }
     }
+
+    updateflatElementList()
+}
+
+function updateflatElementList() {
+    flatElementList = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
 }
 
 function refreshTextPresentation() {
@@ -59,28 +86,32 @@ function refreshTextPresentation() {
 }
 
 function setCorrectSpaces() {
-
-    for (child of container.children) {
-        const txt = child.textContent.trim()
-        child.textContent = txt
-        const isNextElemPunc = child.nextSibling?.classList.contains('punctuation') || false
-        child.style.marginRight = isNextElemPunc ? '0px': '20px'
+    for (el of container.children) {
+        if (el.classList.contains('nowrap') || el.classList.contains('word'))
+        {
+            el.style.marginRight = '20px'
+        }
+        else {
+            el.style.marginRight = '0px'
+        }
     }
 }
 
 function restoreCapitalization() {
     // if word is first word or after a period, or is capitlized in likelyProperNameMap
     // make capital, else don't.
-    const numChildren = container.childElementCount
-
-    for (child of container.children) {
-        const isFirst = child.previousSibling === null
-        const isAfterPeriod = child.previousSibling?.textContent.trim() === '.'
-        const isProperName = likelyProperNameMap[child.textContent.trim().toLowerCase()]
+    const elements = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
+    for(let i = 0; i < elements.length; i++) {
+        const el = elements[i]
+        const text = el.textContent?.trim()
+        const isFirst = i == 0
+        const isAfterPeriod = elements[i - 1]?.classList.contains('punctuation') &&
+        elements[i - 1].textContent === '.'
+        const isProperName = likelyProperNameMap[text.toLowerCase()]
         const capitalizeIt = isFirst || isAfterPeriod || isProperName
-        let firstLetter = child.textContent[0]
+        let firstLetter = text[0]
         firstLetter = capitalizeIt ? firstLetter.toUpperCase() : firstLetter.toLowerCase()
-        child.textContent = firstLetter + child.textContent.slice(1)
+        el.textContent = firstLetter + text.slice(1)
     }
 }
 
@@ -92,9 +123,13 @@ function isInCorrectLocation(elem) {
 
 function setWordFormatting() {
     let prevIsCorrect = false
-    for (child of container.children) {
+    const elements = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
+    for(let i = 0; i < elements.length; i++) {
+        const child = elements[i]
+        const text = child.textContent?.trim()
+
         let isCorrect = false
-        if (child.previousSibling && child.classList.contains('punctuation')) {
+        if (i > 0 && child.classList.contains('punctuation')) {
             isCorrect = prevIsCorrect // adopt formatting of previous word
         }
         else {
@@ -107,7 +142,7 @@ function setWordFormatting() {
     }
 }
 
-function doVisualSwap(a, b) {
+function swapWords(a, b) {
     if (getChildIndex(a) > getChildIndex(b)) {
         // hack: if b is before a in the dom, after the
         // transition, b re-animates right to left
@@ -193,7 +228,8 @@ function selectWord(el) {
 }
 
 function getChildIndex(node) {
-    return Array.prototype.indexOf.call(node.parentNode.childNodes, node);
+    const elements = getDescendantElements(container).filter((e) => !e.classList.contains('nowrap'))
+    return Array.prototype.indexOf.call(elements, node);
 }
 
 function swapElements(obj1, obj2) {
@@ -213,4 +249,13 @@ function swapElements(obj1, obj2) {
 
 function isPunctuation(str) {
     return /[.;:?,]/.test(str)
+}
+
+function getDescendantElements(elem, all = []) {
+    for (child of elem.children) {
+        all.push(child)
+        getDescendantElements(child, all)
+    }
+
+    return all
 }
