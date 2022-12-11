@@ -1,3 +1,5 @@
+import { getRandomPuzzle as getNextPuzzle } from './puzzleManager.js'
+
 const container = document.getElementById("draggable");
 const likelyProperNounMap = {}
 let original_word_list = []
@@ -7,9 +9,9 @@ let isSwapping = false
 let firstSelectedWord = null
 
 // todo: rename this file
-function setText(txt) {
+function setText(puzzleData) {
 
-    const txtWithSpaces = txt.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
+    const txtWithSpaces = puzzleData.text.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
     let words = txtWithSpaces.split(' ')
 
     original_word_list = [...words].map( (x) => x.toLowerCase())
@@ -40,6 +42,7 @@ function setText(txt) {
 
     buildDomTree(words)
     refreshTextPresentation()
+    setupAttribution(puzzleData.attribution)
 }
 
 function buildDomTree(words) {
@@ -79,6 +82,15 @@ function buildDomTree(words) {
     }
 
     updateFlatElemList()
+}
+
+function setupAttribution(attribution) {
+    const attrib = document.querySelector('#attribution')
+    for(let line of attribution) {
+        const div = document.createElement('div')
+        div.innerHTML = line
+        attrib.append(div)
+    }
 }
 
 function updateFlatElemList() {
@@ -181,12 +193,12 @@ function swapWords(a, b) {
     b.style.setProperty('--transLeft', `${transLeftB}px`)
     b.style.setProperty('--transTop', `${transTopB}px`)
 
-    a.addEventListener('transitionend', endTransition, { once: true })
+    a.addEventListener('transitionend', endSwapTransition, { once: true })
     a.classList.add('wordSwap')
     b.classList.add('wordSwap')
 }
 
-function endTransition(ev) {
+function endSwapTransition(ev) {
     const a = wordsToSwap[0]
     const b = wordsToSwap[1]
     wordsToSwap = null

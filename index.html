@@ -3,11 +3,33 @@
 
 <head>
 	<style>
+		body, html {
+		padding:0;
+		margin: 0;
+		}
+		#box {
+			margin: 5px;
+			height: calc(100vh - 5px);
+			display: flex;
+			flex-direction: column;
+			/* flex-direction: column; */
+			/* background-color: aqua; */
+
+		}
+		#menuarea {
+			align-self: flex-start;
+			height: 100px;
+			width: 100%;
+			border-bottom: black 1px solid;
+			flex: initial;
+			/* background: #ce3; */
+		}
 		#sentence {
+			margin-top: var(--margin-top);
 			font-size: 70pt;
-			margin-top:20%;
-			margin-left: 10%;
-			margin-right: 10%;
+			align-self: flex-start;
+			padding:20px 50px 30px 50px;
+			border-radius: 10% / 50%;
 			user-select: none;
 			-webkit-user-select: none;
 			-ms-user-select: none;
@@ -15,7 +37,11 @@
 			-webkit-text-size-adjust: none;
 			touch-action: manipulation; /* blocks double tap zoom */
 			background: #f3f3f3;
-
+			/* transition: transform 700ms ease-in-out; */
+			/* transition: margin-top 700ms ease-in-out; */
+		}
+		#sentence.completed {
+			margin-top: 20px;
 		}
 		.word {
 			display: inline-block;
@@ -23,9 +49,11 @@
 			transition: transform 700ms ease-in-out;
 		}
 		.correct {
+			/* font-style: normal; */
 			color: green;
 		}
 		.incorrect {
+			/* font-style: italic; */
 			color: black;
 		}
 		.wordSelected {
@@ -40,15 +68,33 @@
 		}
 		.punctuation {
 		}
+		#attribution {
+			font-size: 35px;
+			font-family: sans-serif;
+			margin-top: 15px;
+			display:inline-block;
+			width: fit-content;
+			margin-left:auto;
+			margin-right:0;
+			padding-right: 5vh;
+			opacity: 0;
+			transition: opacity 700ms ease-in-out;
+		}
+		#attribution.completed {
+			opacity: 1;
+		}
 	</style>
 </head>
 
 <body>
-	<pre style="font-size: 20pt">27</pre>
-	<div id="sentence">
-		<span id="draggable"></span>
+	<div id="box">
+		<div id="menuarea">i am menu!</div>
+		<div id="sentence">
+			<span id="draggable"></span>
+		</div>
+		<div id="attribution"></div>
 	</div>
-
+	<pre style="font-size: 20pt;position:absolute;bottom:0px;right:0px;margin:0">27</pre>
 	<script type="module" src="./puzzle.js" ></script>
 </body>
 </html>

@@ -1,6 +1,30 @@
+/* schema
+        {
+            txt:"By all means, move at a glacial pace. You know how that thrills me.",
+            lines: [
+                "Miranda Priestly",
+                "<a href='https://www.imdb.com/title/tt0458352'>The Devil Wears Prada</a>",
+                "2006",
+                "Played by Meryl Streep"
+            ],
+            ee: "this is easter egg html"
+        },
+*/
 export const getRandomPuzzle = () => {
     const puzzles = [
-        "By all means, move at a glacial pace. You know how that thrills me.",
+        {
+            id: 0,
+            v: 1,
+            l: 'en',
+            text:"By all means, move at a glacial pace. You know how that thrills me.",
+            givens: [1, 9],
+            caps: [],
+            attribution: [
+                "Miranda Priestly",
+                "<a href='https://www.youtube.com/watch?v=GMTU-LUESgA'>The Devil Wears Prada</a> (2006)",
+                "Played by <a href='https://en.wikipedia.org/wiki/Meryl_Streep_on_screen_and_stage'>Meryl Streep</a>",
+            ]
+        },
         "The way to get started is quit talking and begin doing.",
         "Don't judge each day by the harvest you reap but by the seeds that you plant.",
         "When you reach the end of your rope, tie a knot in it and hang on.",
@@ -24,6 +48,15 @@ export const getRandomPuzzle = () => {
         "The most interesting information comes from children, for they tell all they know and then stop.",
         "One never notices what has been done; one can only see what remains to be done.",
         "It's not that I'm afraid to die. I just don't want to be there when it happens.",
+        "It is possible to commit no errors and still lose. That is not a weakness. That is life.",
+        "I am pleased to see that we have differences. May we together become greater than the sum of both of us.",
+        "You may find that having is not so pleasing a thing as wanting. This is not logical, but it is often true.",
     ]
-    return puzzles[Math.floor(Math.random() * puzzles.length)]
+
+    // const p = puzzles[Math.floor(Math.random() * puzzles.length)]
+    const p = puzzles[0]
+    for(let i = 0; i < p.attribution.length; i++) {
+        p.attribution[i] = p.attribution[i].replace('<a href=', "<a target='_blank' href=")
+    }
+    return p
 }
