@@ -1,46 +1,16 @@
-import { getRandomPuzzle as getNextPuzzle } from './puzzleManager.js'
+import * as puzzleData from './puzzleData.mjs'
 
-const container = document.getElementById("draggable");
-const likelyProperNounMap = {}
-let original_word_list = []
+const container = document.getElementById("draggable")
 let wordsToSwap = []
 let flatWordElems = []
 let isSwapping = false
 let firstSelectedWord = null
 
 // todo: rename this file
-function setText(puzzleData) {
 
-    const txtWithSpaces = puzzleData.text.replaceAll(',', ' ,').replaceAll('.', ' .').replaceAll(':', ' :').replaceAll(';', ' ;').replaceAll('?', ' ?')
-    let words = txtWithSpaces.split(' ')
-
-    original_word_list = [...words].map( (x) => x.toLowerCase())
-
-    // save capitalization info
-    for(let i = 1; i < words.length; i++) {
-        // if word is capitlized, but is not first letter or after a period, assume it's propername.
-        // Not perfect, breaks on "God is dead."
-        const word = words[i]
-        likelyProperNounMap[word.toLowerCase()] = (word[0] === word[0].toUpperCase() && words[i - 1] != '.')
-    }
-
-    // this will ultimately be removed - puzzles will not be random at runtime
-    const shuffle = true
-    if (shuffle) {
-        // shuffle words, leaving punctuation in place
-        const nonPunctuationIndexes = Array.from(Array(words.length).keys()).filter(w => !isPunctuation(words[w]))
-        const shuffledIndexes = [...nonPunctuationIndexes]
-        shuffledIndexes.sort((a, b) => 0.5 - Math.random());
-        const shuffledWords = []
-        for (let i = 0; i < words.length; i++) {
-            const isPunc = !nonPunctuationIndexes.includes(i)
-            const newWord = isPunc ?  words[i] : words[shuffledIndexes.pop()]
-            shuffledWords.push( newWord )
-        }
-        words = shuffledWords
-    }
-
-    buildDomTree(words)
+async function loadPuzzle() {
+    await puzzleData.load()
+    buildDomTree(puzzleData.wordList)
     refreshTextPresentation()
     setupAttribution(puzzleData.attribution)
 }
@@ -55,10 +25,10 @@ function buildDomTree(words) {
     for (let i = words.length - 1; i >= 0; i--) {
         let txtContent = words[i]
         let noWrapSpan = null
-        if (isPunctuation(txtContent)) {
+        if (puzzleData.isPunctuation(txtContent)) {
             noWrapSpan = document.createElement('span')
             noWrapSpan.classList.add('nowrap')
-            while (isPunctuation(txtContent)) {
+            while (puzzleData.isPunctuation(txtContent)) {
                 const puncSpan = document.createElement('span')
                 puncSpan.classList.add('punctuation')
                 puncSpan.appendChild(document.createTextNode(txtContent))
@@ -86,7 +56,7 @@ function buildDomTree(words) {
 
 function setupAttribution(attribution) {
     const attrib = document.querySelector('#attribution')
-    for(let line of attribution) {
+    for(let line of puzzleData.attribution) {
         const div = document.createElement('div')
         div.innerHTML = line
         attrib.append(div)
@@ -124,18 +94,12 @@ function restoreCapitalization() {
         const isFirst = i == 0
         const isAfterPeriod = flatWordElems[i - 1]?.classList.contains('punctuation') &&
         flatWordElems[i - 1].textContent === '.'
-        const isProperName = likelyProperNounMap[text.toLowerCase()]
+        const isProperName = puzzleData.requiresCapitalization(text.toLowerCase())
         const capitalizeIt = isFirst || isAfterPeriod || isProperName
         let firstLetter = text[0]
         firstLetter = capitalizeIt ? firstLetter.toUpperCase() : firstLetter.toLowerCase()
         el.textContent = firstLetter + text.slice(1)
     }
-}
-
-function isInCorrectLocation(elem) {
-    const container_loc = flatWordElems.indexOf(elem)
-    const spanText = elem.textContent.trim().toLowerCase()
-    return  original_word_list[container_loc] === spanText
 }
 
 function setWordFormatting() {
@@ -149,7 +113,9 @@ function setWordFormatting() {
             isCorrect = prevIsCorrect // adopt formatting of previous word
         }
         else {
-            isCorrect = isInCorrectLocation(child)
+            const wordIndex = flatWordElems.indexOf(child)
+            const spanText = child.textContent.trim().toLowerCase()
+            isCorrect = puzzleData.isInCorrectLocation(spanText, wordIndex)
         }
 
         child.classList.remove('correct', 'incorrect', 'wordSelected')
@@ -273,10 +239,6 @@ function clearSelection() {
     firstSelectedWord = null
 }
 
-function isPunctuation(str) {
-    return /[.;:?,]/.test(str)
-}
-
 function getDescendantElements(elem, all = []) {
     for (let child of elem.children) {
         all.push(child)
@@ -297,4 +259,4 @@ function drawDebugBox(parent, pos) {
     parent.appendChild(testDiv)
 }
 
-export { setText, selectWord, clearSelection }
+export { loadPuzzle, selectWord, clearSelection }

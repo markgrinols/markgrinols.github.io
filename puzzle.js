@@ -1,5 +1,4 @@
-import { getRandomPuzzle as getNextPuzzle } from './puzzleManager.js'
-import { setText, selectWord, clearSelection } from './formatting.js'
+import { loadPuzzle, selectWord, clearSelection } from './formatting.js'
 
 const pointerDownOnPuzzleWords = (ev) => {
     ev.preventDefault() // trying to prevent double tap to zoom
@@ -26,7 +25,7 @@ sentence.addEventListener('pointerdown', (ev) => {
     }, { once: true })
 });
 
-setText(await getNextPuzzle())
+await loadPuzzle()
 
 const box = document.querySelector('#box')
 const menuarea = document.querySelector('#menuarea')
