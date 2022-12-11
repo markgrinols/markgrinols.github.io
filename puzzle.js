@@ -26,7 +26,7 @@ sentence.addEventListener('pointerdown', (ev) => {
     }, { once: true })
 });
 
-setText(getNextPuzzle())
+setText(await getNextPuzzle())
 
 const box = document.querySelector('#box')
 const menuarea = document.querySelector('#menuarea')

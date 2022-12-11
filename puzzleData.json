@@ -1,0 +1,15 @@
+[
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text":"By all means, move at a glacial pace. You know how that thrills me.",
+        "givens": [1, 9],
+        "caps": [],
+        "attribution": [
+            "Miranda Priestly",
+            "<a href='https://www.youtube.com/watch?v=GMTU-LUESgA'>The Devil Wears Prada</a> (2006)",
+            "Played by <a href='https://en.wikipedia.org/wiki/Meryl_Streep_on_screen_and_stage'>Meryl Streep</a>"
+        ]
+    }
+]
