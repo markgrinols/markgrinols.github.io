@@ -11,8 +11,8 @@ let firstSelectedWord = null
 async function loadPuzzle() {
     await puzzleData.load()
     buildDomTree(puzzleData.wordList)
-    refreshTextPresentation()
     setupAttribution(puzzleData.attribution)
+    refreshTextPresentation()
 }
 
 function buildDomTree(words) {
@@ -56,7 +56,7 @@ function buildDomTree(words) {
 
 function setupAttribution(attribution) {
     const attrib = document.querySelector('#attribution')
-    for(let line of puzzleData.attribution) {
+    for(let line of attribution) {
         const div = document.createElement('div')
         div.innerHTML = line
         attrib.append(div)
@@ -71,6 +71,7 @@ function refreshTextPresentation() {
     setCorrectSpaces()
     restoreCapitalization()
     setWordFormatting()
+    checkForCompletion()
 }
 
 function setCorrectSpaces() {
@@ -114,7 +115,7 @@ function setWordFormatting() {
         }
         else {
             const wordIndex = flatWordElems.indexOf(child)
-            const spanText = child.textContent.trim().toLowerCase()
+            const spanText = child.textContent
             isCorrect = puzzleData.isInCorrectLocation(spanText, wordIndex)
         }
 
@@ -237,6 +238,24 @@ function selectWord(el) {
 function clearSelection() {
     refreshTextPresentation()
     firstSelectedWord = null
+}
+
+function checkForCompletion() {
+    // check every word in flat list is
+    let solved = true
+    for(let i = 0; i < flatWordElems.length; i++) {
+        solved &= puzzleData.isInCorrectLocation(flatWordElems[i].textContent, i)
+    }
+
+    if(solved) {
+        const sentence = document.querySelector('#sentence')
+        sentence.style.cssText += 'transition: margin-top 700ms ease-in-out;'; // no, seriously, fuck you
+        sentence.classList.add('completed')
+        sentence.addEventListener('transitionend', (ev) => {
+                document.getElementById('attribution').classList.add('completed')
+            }, { once: true }
+        )
+    }
 }
 
 function getDescendantElements(elem, all = []) {

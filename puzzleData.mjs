@@ -7,9 +7,8 @@ let attribution = []
 const load = async () => {
     const url = "puzzleData.json"
     const puzzles = await fetchJson(url)
-
-    // rawPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)]
-    rawPuzzle = puzzles[0]
+    rawPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)]
+    // rawPuzzle = puzzles[0]
     updateHyperlinks()
     generateWordList({ shuffle: true })
     attribution = rawPuzzle.attribution
@@ -69,7 +68,7 @@ const fetchJson = async (url) => {
 };
 
 const isInCorrectLocation = (word, index) => {
-    return  original_word_list[index] === word
+    return  original_word_list[index] === word.trim().toLowerCase()
 }
 
 const requiresCapitalization = (txt) => {

@@ -11,5 +11,154 @@
             "<a href='https://www.youtube.com/watch?v=GMTU-LUESgA'>The Devil Wears Prada</a> (2006)",
             "Played by <a href='https://en.wikipedia.org/wiki/Meryl_Streep_on_screen_and_stage'>Meryl Streep</a>"
         ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "The way to get started is quit talking and begin doing.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Walt Disney",
+            "1957",
+            "Interview with <a href='https://www.snopes.com/fact-check/walt-disney-way-to-get-started/'>Hedda Hopper</a>"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "Don't judge each day by the harvest you reap but by the seeds that you plant.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Robert Louis Stevenson (attrib)",
+            "Admiral Guinea (1884)"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "When you reach the end of your rope, tie a knot in it and hang on.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Unattributed folk wisdom",
+            "<a href='https://babel.hathitrust.org/cgi/pt?id=wu.89063018576&view=1up&seq=65'>Life Magazine, 1919</a>"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "We few, we happy few, we band of brothers",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "William Shakespeare",
+            "<a href='https://en.wikipedia.org/wiki/Henry_V_(play)#/media/File:Henry_V_1600_Q_titlepage.JPG'>Henry V</a>, 1599"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "My mother sacrificed her dreams so I could dream",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Rupi Kaur",
+            "<a href='https://rupikaur.com/pages/milk-and-honey'>Milk and Honey</a>, 2014"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "Every time I travel I meet myself a little more",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Yrsa Daley-Ward",
+            "<a href='https://www.yrsadaleyward.com/'>Bone</a> 2017"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "Security is mostly a superstition... Life is either a daring adventure, or nothing.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Hellen Keller",
+            "<a href='https://www.afb.org/HelenKellerArchive?a=d&d=A-HK02-B228-F05-002'>The Open Door</a>, 1957"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "<a href='https://www.nelsonmandela.org/content/page/biography'>Nelson Mandela</a>",
+            "Long Walk to Freedom, 1995"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "One never notices what has been done; one can only see what remains to be done.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Marie Curie",
+            "Letter to her brother",
+            "1894"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "It's not that I'm afraid to die. I just don't want to be there when it happens.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Woody Allen",
+            "<a href='https://en.wikipedia.org/wiki/Death_(play)'>Death (A Play)</a>",
+            "1975"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "It is possible to commit no errors and still lose. That is not a weakness. That is life.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "jean-Luc Picard",
+            "Star Trek TNG",
+            "<a href='https://www.youtube.com/watch?v=t4A-Ml8YHyM'>Season 2 episode 21</a>"
+        ]
+    },
+    {
+        "id": 0,
+        "v": 1,
+        "l": "en",
+        "text": "I am pleased to see that we have differences. May we together become greater than the sum of both of us.",
+        "givens": [],
+        "caps": [],
+        "attribution": [
+            "Surak",
+            "Star Trek (original series)",
+            "< href='https://www.youtube.com/watch?v=QMa_VPGJxZ4'>The Savage Curtain</a>"
+        ]
     }
 ]

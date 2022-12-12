@@ -15,16 +15,6 @@ document.addEventListener('pointerdown', (ev) => {
     }
 })
 
-const sentence = document.querySelector('#sentence')
-sentence.addEventListener('pointerdown', (ev) => {
-    const x = ev.target.closest('#sentence')
-    sentence.classList.add('completed')
-    sentence.style.cssText += 'transition: margin-top 700ms ease-in-out;'; // no, seriously, fuck you
-    sentence.addEventListener('transitionend', (ev) => {
-        document.getElementById('attribution').classList.add('completed')
-    }, { once: true })
-});
-
 await loadPuzzle()
 
 const box = document.querySelector('#box')
