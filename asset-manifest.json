@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/swap/static/css/main.f0cceded.css",
+    "main.js": "/swap/static/js/main.fdede3d1.js",
+    "static/js/787.46394f7f.chunk.js": "/swap/static/js/787.46394f7f.chunk.js",
+    "index.html": "/swap/index.html",
+    "main.f0cceded.css.map": "/swap/static/css/main.f0cceded.css.map",
+    "main.fdede3d1.js.map": "/swap/static/js/main.fdede3d1.js.map",
+    "787.46394f7f.chunk.js.map": "/swap/static/js/787.46394f7f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f0cceded.css",
+    "static/js/main.fdede3d1.js"
+  ]
+}
