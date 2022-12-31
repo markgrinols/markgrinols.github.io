@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/static/js/main.d95c21e2.js",
+    "main.js": "/static/js/main.ab549b27.js",
     "static/js/787.f6a70e91.chunk.js": "/static/js/787.f6a70e91.chunk.js",
     "static/media/applause.png": "/static/media/applause.0cd811b6ac2b1d8254f2.png",
     "index.html": "/index.html",
     "static/media/SRD_comic_clouds_11.svg": "/static/media/SRD_comic_clouds_11.4286749d5edd2cba5b0e2097aecef468.svg",
-    "main.d95c21e2.js.map": "/static/js/main.d95c21e2.js.map",
+    "main.ab549b27.js.map": "/static/js/main.ab549b27.js.map",
     "787.f6a70e91.chunk.js.map": "/static/js/787.f6a70e91.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.d95c21e2.js"
+    "static/js/main.ab549b27.js"
   ]
 }
