@@ -1,1 +1,1 @@
-8 f261a10 Removed misses progress bar (for now)
+9 e0cb29c Moved Progress component inside QuoteArea
