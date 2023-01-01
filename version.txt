@@ -1,1 +1,1 @@
-11 d67acbc hide scrollbar on slider
+12 bca8c67 fixed bottombar hit test bug
