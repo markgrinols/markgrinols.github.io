@@ -1,1 +1,1 @@
-12 bca8c67 fixed bottombar hit test bug
+13 bca8c67 fixed bottombar hit test bug
