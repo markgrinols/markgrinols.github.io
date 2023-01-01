@@ -1,1 +1,1 @@
-7 586d861 improved version stamp
+8 f261a10 Removed misses progress bar (for now)
