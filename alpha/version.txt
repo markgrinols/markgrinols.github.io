@@ -1,1 +1,1 @@
-25 53eee58 turn daily/practice links into puzzles
+26 d40b3eb script to deploy to sub folder
