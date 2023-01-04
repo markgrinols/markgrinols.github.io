@@ -1,1 +1,1 @@
-30 ea75a9b Fixed various bugs in hint backup selection
+31 c1081cc fixes missing underlining on puzzle words
