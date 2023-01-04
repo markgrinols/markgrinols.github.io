@@ -1,1 +1,1 @@
-31 c1081cc fixes missing underlining on puzzle words
+32 4370d3b makes bottom bar 'tutorial' a link to exit tut daily page now loads a non tut puzzle debug page has link to turn tut back on
