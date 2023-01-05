@@ -1,1 +1,1 @@
-32 4370d3b makes bottom bar 'tutorial' a link to exit tut daily page now loads a non tut puzzle debug page has link to turn tut back on
+34 46af69d Makes tut help appears before puzzle fades in
