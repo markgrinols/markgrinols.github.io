@@ -1,1 +1,1 @@
-34 46af69d Makes tut help appears before puzzle fades in
+38 cce6fba tweaks more tutorial language
