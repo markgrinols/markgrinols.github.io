@@ -1,1 +1,1 @@
-42 51311b8 adds label to hint button
+43 c5e392d changes tut text another time.
