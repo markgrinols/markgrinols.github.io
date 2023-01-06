@@ -1,1 +1,1 @@
-52 4d5a979 css no longer put dotted underline on punctuation
+54 b9015d3 prevents score from going below zero
