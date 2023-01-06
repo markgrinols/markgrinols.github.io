@@ -1,1 +1,1 @@
-63 08ae0b2 refresh hints
+64 4bdc87e hides feedback section on tutorial puzzles tweaks tutorial text
