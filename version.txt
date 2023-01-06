@@ -1,1 +1,1 @@
-60 21fa435  simplify delay/fade for HintButton
+62 b2a4e00 improves feedback presentation
