@@ -1,0 +1,1 @@
+56 b9015d3 prevents score from going below zero
