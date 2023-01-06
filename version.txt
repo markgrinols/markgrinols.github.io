@@ -1,1 +1,1 @@
-43 c5e392d changes tut text another time.
+44 474540c slims down 'next daily' message removes success message for non-tut adds green words and score to telemetry adds util function to format a timespan string
