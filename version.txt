@@ -1,1 +1,1 @@
-64 4bdc87e hides feedback section on tutorial puzzles tweaks tutorial text
+65 37b8530 logs difficulty data to aws dynamodb
