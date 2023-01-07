@@ -1,1 +1,1 @@
-68 9964f5c adds uuid to telemetry
+69 1c571f3 fixes broken tut link on bottomBar
