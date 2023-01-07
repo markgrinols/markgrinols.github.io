@@ -1,1 +1,1 @@
-66 37b8530 logs difficulty data to aws dynamodb
+67 11df32d makes practice the default page, and hides daily
