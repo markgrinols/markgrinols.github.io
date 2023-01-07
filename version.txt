@@ -1,1 +1,1 @@
-67 11df32d makes practice the default page, and hides daily
+68 9964f5c adds uuid to telemetry
