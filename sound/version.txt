@@ -1,0 +1,1 @@
+76 b3ebb21 fixes (?) shake animation on ios 15
