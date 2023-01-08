@@ -1,1 +1,1 @@
-80 e1f865c adds logging of runtime errors to dynamodb 2
+91 95c7f92 adds more time to timeout for deploy script
