@@ -1,1 +1,1 @@
-70 3182584 corrects localStorage name
+71 b3ebb21 fixes (?) shake animation on ios 15
