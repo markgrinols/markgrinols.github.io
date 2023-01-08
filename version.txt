@@ -1,1 +1,1 @@
-69 1c571f3 fixes broken tut link on bottomBar
+70 3182584 corrects localStorage name
