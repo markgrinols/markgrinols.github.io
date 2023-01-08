@@ -1,1 +1,1 @@
-74 b3ebb21 fixes (?) shake animation on ios 15
+80 e1f865c adds logging of runtime errors to dynamodb
