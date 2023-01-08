@@ -1,1 +1,1 @@
-85 e1f865c adds logging of runtime errors to dynamodb
+88 e1f865c adds logging of runtime errors to dynamodb
