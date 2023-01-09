@@ -1,1 +1,1 @@
-112 8bb6c70 Puts chapter name/progress labels along bottombar
+113 4eec4a8 shows score during tut2/tut3 separates Score & Stats reports
