@@ -1,1 +1,1 @@
-113 4eec4a8 shows score during tut2/tut3 separates Score & Stats reports
+114 eca6d07 fixes typography in tutorial adds app title on tut1
