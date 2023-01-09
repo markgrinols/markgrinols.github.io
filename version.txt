@@ -1,1 +1,1 @@
-100 1f1161a adds checkmarks to completed chapters
+106 0b9dc38 makes gh-pages deployments additive
