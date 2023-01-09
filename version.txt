@@ -1,1 +1,1 @@
-99 13dec1b fixes (no seriously) shake on ios adds a juicy animation when puzzle is solved
+100 1f1161a adds checkmarks to completed chapters
