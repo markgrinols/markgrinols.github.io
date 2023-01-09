@@ -1,1 +1,1 @@
-91 95c7f92 adds more time to timeout for deploy script
+98 13dec1b fixes (no seriously) shake on ios adds a juicy animation when puzzle is solved
