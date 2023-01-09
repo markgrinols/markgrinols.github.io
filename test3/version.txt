@@ -1,0 +1,1 @@
+103 419c81f 404s on github pages should redirect to app home
