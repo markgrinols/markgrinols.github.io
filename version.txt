@@ -1,1 +1,1 @@
-107 b8b0a36 changes puz feedback to a dialog
+108 88d12fc disable scrolling by default
