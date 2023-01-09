@@ -1,1 +1,1 @@
-110 88d12fc disable scrolling by default
+112 8bb6c70 Puts chapter name/progress labels along bottombar
