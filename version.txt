@@ -1,1 +1,1 @@
-114 eca6d07 fixes typography in tutorial adds app title on tut1
+116 1ca8abe eliminates puzzle flash when starting new puzzle
