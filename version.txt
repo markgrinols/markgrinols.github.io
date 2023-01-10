@@ -1,1 +1,1 @@
-116 1ca8abe eliminates puzzle flash when starting new puzzle
+117 ff8419d fixes hint value on tut3 tweaks text
