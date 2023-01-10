@@ -1,1 +1,1 @@
-118 d5acf2e adds bottom help text to tut1
+120 0140015 fix typo in practice menu
