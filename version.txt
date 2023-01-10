@@ -1,1 +1,1 @@
-117 ff8419d fixes hint value on tut3 tweaks text
+118 d5acf2e adds bottom help text to tut1
