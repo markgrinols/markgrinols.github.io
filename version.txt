@@ -1,1 +1,1 @@
-120 0140015 fix typo in practice menu
+121 ea50b5e shows misses/strikes as Xs above puzzle
