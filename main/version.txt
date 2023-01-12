@@ -1,1 +1,1 @@
-140 2fff13a fixes deploy script
+142 a9a403a removes revealselectedword from game (alt approach to hint)
