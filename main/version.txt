@@ -1,1 +1,1 @@
-142 a9a403a removes revealselectedword from game (alt approach to hint)
+143 caaf331 fixes nullref due to timing
