@@ -1,1 +1,1 @@
-147 7809786 adds differentiated congrats messages uses the word 'strike' to mean miss updates tutorial text for 'strikes' and 'lost'
+148 6ab6dd1 moves tut3 help text below the hint button
