@@ -1,1 +1,1 @@
-148 6ab6dd1 moves tut3 help text below the hint button
+149 4b38041 tweaks layout and tut text
