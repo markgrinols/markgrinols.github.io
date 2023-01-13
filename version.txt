@@ -1,1 +1,1 @@
-149 4b38041 tweaks layout and tut text
+151 7deee3c updates puzzle 51
