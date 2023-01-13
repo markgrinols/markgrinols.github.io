@@ -1,1 +1,1 @@
-152 c4a75b9 adjusts missesBar layout
+154 bc676fd moves tutorial.js up to main components dir pt 3
