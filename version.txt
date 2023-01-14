@@ -1,1 +1,1 @@
-170 6a1b969 swaps out my little friend puzzle
+172 51e86d1 logs events for chapter start/end
