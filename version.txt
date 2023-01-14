@@ -1,1 +1,1 @@
-163 cce0812 adds browser info to gamestore fixes no repeating sounds bug on safari changes name to Quote Mix and tweaks tut text
+164 f9f0ddc adds vert buffer around puzzle sentence
