@@ -1,1 +1,1 @@
-164 f9f0ddc adds vert buffer around puzzle sentence
+165 a15de8d balances x padding on quotearea sets width to 100% for draggable
