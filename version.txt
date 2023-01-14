@@ -1,1 +1,1 @@
-162 614aef5 makes minor layout and style changes
+163 cce0812 adds browser info to gamestore fixes no repeating sounds bug on safari changes name to Quote Mix and tweaks tut text
