@@ -1,1 +1,1 @@
-168 7b41aac fixes attribution text color and layout bugs
+169 223c9a4 reduces content in banner
