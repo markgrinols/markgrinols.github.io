@@ -1,1 +1,1 @@
-165 a15de8d balances x padding on quotearea sets width to 100% for draggable
+167 1107ed1 fixes typo in tutorial tries out 'Mixed Message' for the title
