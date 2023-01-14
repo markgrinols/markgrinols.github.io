@@ -1,1 +1,1 @@
-160 7270d22 fixes bug where chapter info lingers on practiceMenu
+161 614aef5 makes minor layout and style changes
