@@ -1,1 +1,1 @@
-173 affbf05 fixes broken logging of duration
+174 ea30778 renames trace to logToDb removes writing to firestore
