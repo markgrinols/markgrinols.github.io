@@ -1,1 +1,1 @@
-174 ea30778 renames trace to logToDb removes writing to firestore
+175 7db4685 fixes bug with chapter_id in telemetry
