@@ -1,1 +1,1 @@
-175 7db4685 fixes bug with chapter_id in telemetry
+176 d91db5a adds two more safety checks to deploy script
