@@ -1,1 +1,1 @@
-181 313f4ee adds service worker
+182 3a83590 adds 512 size logo
