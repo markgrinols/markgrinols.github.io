@@ -1,1 +1,1 @@
-185 2fc1bd9 adds background tile
+186 c44b27c adds version info to topbar
