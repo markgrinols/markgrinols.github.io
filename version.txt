@@ -1,1 +1,1 @@
-182 3a83590 adds 512 size logo
+184 89694bc moves subtitle up on home page
