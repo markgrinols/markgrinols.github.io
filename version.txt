@@ -1,1 +1,1 @@
-186 c44b27c adds version info to topbar
+189 d6bf357 adds outline when over a drag drop area adds dropping functionality failed drop returns to prev location
