@@ -1,1 +1,1 @@
-217 89c50c5 makes overlay visibility a style reduces responsibility of dragdrop.js adds tap-blank , tap-word input mode adds sequential input in that mode
+218 27de58d tweaks puzzles fixes comment
