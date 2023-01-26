@@ -1,1 +1,1 @@
-213 bb49eb1 makes underline thinner on #puzzle makes words bolder on #wordbank changes #wordbank text color to theme
+214 03196cc tweaks drag and drop settings to fix difficulty dragging on android reverts back to outline to show drop target
