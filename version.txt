@@ -1,1 +1,1 @@
-216 0df5774 adds overlay to blanks to indicate where to tap inserts a new container node, i hope i don't regret
+217 89c50c5 makes overlay visibility a style reduces responsibility of dragdrop.js adds tap-blank , tap-word input mode adds sequential input in that mode
