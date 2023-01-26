@@ -1,21 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.ffeb3611.js",
+    "main.js": "/static/js/main.0837fd3a.js",
     "static/js/787.ff435ed1.chunk.js": "/static/js/787.ff435ed1.chunk.js",
-    "static/media/menuLogo.png": "/static/media/menuLogo.dba616b29c57156702ff.png",
-    "static/media/page-lab.png": "/static/media/page-lab.7ab5f056e6c11c07c72e.png",
-    "static/media/page-settings.png": "/static/media/page-settings.a3b3e96795d69f8eb1f8.png",
+    "static/media/menuLogo.png": "/static/media/menuLogo.c4e869c13107a40dab48.png",
     "static/media/bg-light.png": "/static/media/bg-light.a73dc0ad45f117cf4708.png",
-    "static/media/page-packs.png": "/static/media/page-packs.305a739b403470a78637.png",
-    "static/media/coins_selling_sound.mp3": "/static/media/coins_selling_sound.162f2ef664cc65b1463e.mp3",
-    "static/media/fail_double_click.mp3": "/static/media/fail_double_click.2b66ff76739e857bb616.mp3",
-    "static/media/click.mp3": "/static/media/click.37904a579305fd9dc677.mp3",
-    "static/media/success_ding.mp3": "/static/media/success_ding.cfc0cb6c053e16235adb.mp3",
+    "static/media/coins_selling_sound.mp3": "/static/media/coins_selling_sound.a096ad138ede97088be2.mp3",
+    "static/media/fail_double_click.mp3": "/static/media/fail_double_click.67d2ca4e330890ec88f0.mp3",
+    "static/media/click.mp3": "/static/media/click.803576620b1fd460f8e3.mp3",
+    "static/media/success_ding.mp3": "/static/media/success_ding.42120d98e2590563e7d2.mp3",
     "index.html": "/index.html",
-    "main.ffeb3611.js.map": "/static/js/main.ffeb3611.js.map",
+    "main.0837fd3a.js.map": "/static/js/main.0837fd3a.js.map",
     "787.ff435ed1.chunk.js.map": "/static/js/787.ff435ed1.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.ffeb3611.js"
+    "static/js/main.0837fd3a.js"
   ]
 }
