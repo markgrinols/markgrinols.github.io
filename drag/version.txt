@@ -1,1 +1,1 @@
-228 d834d8d centers dragged word under pointer prevents dragged word from being selected
+229 53d7226 fixes bug in drop target hit box
