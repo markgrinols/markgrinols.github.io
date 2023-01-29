@@ -1,1 +1,1 @@
-235 7eba921 fixes drag on iOS fixes bug where you can drop on green blocks mutlitouch
+236 06258ce switches overlay to a target svg element
