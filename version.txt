@@ -1,1 +1,1 @@
-241 74a233b temp remove hepl tips
+242 2534cdc overrides minification for prod build
