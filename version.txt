@@ -1,1 +1,1 @@
-243 ed2c07e puts cache bush suffix on version.txt url
+244 2bc9643 turns minification back on
