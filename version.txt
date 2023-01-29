@@ -1,1 +1,1 @@
-236 06258ce switches overlay to a target svg element
+237 379858a makes top container height 100%
