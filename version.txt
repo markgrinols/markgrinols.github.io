@@ -1,1 +1,1 @@
-252 240b874 removes --add from gh-pages command
+253 240b874 removes --add from gh-pages command
