@@ -1,1 +1,1 @@
-257 bae5036 uses overlay for drag feedback, not outline makes target char bigger
+258 9d66f57 fixes positions and sizes of targets
