@@ -1,1 +1,1 @@
-255 240b874 removes --add from gh-pages command
+256 08cc485 tweaks homepage layout
