@@ -1,1 +1,1 @@
-268 67caba2 fixes scrolling on practice menu
+269 fb81cf9 adjusts position of 'awesome job' message renames play mode choices renames play button to more puzzles let's random be a pack at the bottom of the list
